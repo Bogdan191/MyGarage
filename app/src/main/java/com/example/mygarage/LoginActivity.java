@@ -4,31 +4,59 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+
+import org.w3c.dom.Text;
+
+public class LoginActivity extends AppCompatActivity  {
 
     Button loginButton;
-    @Override
-    protected  void onCreate(Bundle savedInstande) {
+    Button registerActivity;
+    Button forgotPassword;
 
-        super.onCreate(savedInstande);
-        setContentView(R.layout.activity_login);
-    }
     @Override
-    public void onClick(View view) {
-        switch(view.getId()) {
-            case R.id.buttonLogin:
-                    startActivity(new Intent(this, MainActivity.class));
-                    break;
-            case R.id.buttonRegister:
-                    startActivity(new Intent(this, RegisterActivity.class));
-                    break;
-            case R.id.textViewForgotCredentials:
-                Toast.makeText(getApplicationContext(), "Create page for resetting the password!", Toast.LENGTH_LONG);
+    protected  void onCreate(Bundle savedInstance) {
+
+        super.onCreate(savedInstance);
+        setContentView(R.layout.activity_login);
+
+        loginButton = findViewById(R.id.buttonLogin);
+        registerActivity = findViewById(R.id.buttonGoToRegister);
+        forgotPassword = findViewById(R.id.buttonGoToForgotPassword);
+        try {
+            loginButton.setOnClickListener(view-> Login());
+
+            registerActivity.setOnClickListener(view -> gotoRegisterActivity());
+
+            forgotPassword.setOnClickListener(view -> gotoForgotPassActivity());
+        }catch(Exception e){
+            Toast.makeText(this, "Error on clicking buttons event!", Toast.LENGTH_LONG).show();
+
         }
 
+
     }
+
+
+    private void Login() {
+
+
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void gotoRegisterActivity() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    private void gotoForgotPassActivity() {
+        Toast.makeText(this, "The 'Forgot Password' form is not implemented yet!", Toast.LENGTH_LONG).show();
+    }
+
 }
