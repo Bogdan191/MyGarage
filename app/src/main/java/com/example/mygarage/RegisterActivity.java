@@ -102,8 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
                             //we will store the additional field in firebase db
                             User user = new User(
                                     name,
-                                    email,
-                                    password
+                                    email
                             );
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -111,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(RegisterActivity.this, "Felicitari! Acum va puteti loga in aplicatie", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, "Felicitari! Acum va puteti loga in aplicatie", Toast.LENGTH_LONG).show();
 
                                     }else {
                                         Toast.makeText(RegisterActivity.this, "Inregistrarea noului cont a esuat!\n Eroarea: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
