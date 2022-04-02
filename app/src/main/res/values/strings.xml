@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MyGarage</string>
     <string name="login">Login</string>
+    <string name="mygarage_stiri_auto">MyGarage - Stiri auto</string>
 </resources>
