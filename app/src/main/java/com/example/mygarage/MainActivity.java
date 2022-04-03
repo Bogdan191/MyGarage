@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,6 +43,29 @@ public class MainActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom);
+        bottomNavigationView.setSelectedItemId(R.id.menu_bottom_home);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch(menuItem.getItemId()){
+                    case R.id.menu_bottom_home:
+                        Toast.makeText(getApplicationContext(), "Esti deja pe pagina cu stiri din doemniul auto", Toast.LENGTH_LONG).show();
+                        return true;
+                    case R.id.menu_bottom_my_cars:
+                        Toast.makeText(getApplicationContext(), "Momentan, aceasta sectiune este in dezvoltare!", Toast.LENGTH_LONG).show();
+                        return true;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + menuItem.getItemId());
+                }
+
+            }
+
+        });
+
     }
 
     @Override
@@ -94,4 +119,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+
 }
