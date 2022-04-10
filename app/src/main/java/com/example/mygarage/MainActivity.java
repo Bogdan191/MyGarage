@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Esti deja pe pagina cu stiri din doemniul auto", Toast.LENGTH_LONG).show();
                         return true;
                     case R.id.menu_bottom_my_cars:
-                        Toast.makeText(getApplicationContext(), "Momentan, aceasta sectiune este in dezvoltare!", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getApplicationContext(), MyCarsActivity.class));
                         return true;
                     default:
                         throw new IllegalStateException("Unexpected value: " + menuItem.getItemId());
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar_activity_main);
 
         setSupportActionBar(toolbar);
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Ai ales sa mergi spre setari! Momentan, acest serviciu, nu este disponibil!", Toast.LENGTH_LONG).show();
                 break;
             case R.id.side_menu_log_out:
-                goToLoginActivity();
+                Logout();
                 break;
             default:
                 break;
@@ -136,16 +136,22 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             //handle the case when the user is not logged in, this means the app should go to login page
-            Toast.makeText(this, "Please login in the Application with your account", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Intra in aplicatie introducand datele contului dvs. Daca nu aveti un cont, va puteti inregistra.", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, LoginActivity.class));
         }
     }
 
-    private void goToLoginActivity(){
-        mAuth.signOut();
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+    private void Logout() {
 
+        try{
+
+            mAuth.signOut();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+
+        }catch(Exception e) {
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+        }
     }
 
 
