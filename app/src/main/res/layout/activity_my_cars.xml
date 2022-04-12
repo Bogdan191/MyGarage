@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/my_gradient_drawable"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,6 +25,19 @@
             android:textSize="25sp" />
     </com.google.android.material.appbar.MaterialToolbar>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/myCarsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="120dp"
+        android:layout_below="@+id/toolbar_activity_my_cars"
+        android:layout_marginTop="5dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_activity_my_cars"
+        app:layout_constraintVertical_bias="0.0">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/menu_bottom"
         android:layout_width="match_parent"
@@ -37,4 +49,14 @@
         tools:ignore="InvalidId,MissingConstraints"
         tools:layout_editor_absoluteX="0dp" />
 
+    <Button
+        android:id="@+id/addNewCar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/menu_bottom"
+        android:layout_below="@id/myCarsList"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-120dp"
+        android:layout_marginBottom="2dp"
+        android:text="Adauga o noua masina" />
 </RelativeLayout>

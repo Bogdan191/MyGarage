@@ -28,6 +28,9 @@
         <activity android:name=".MyCarsActivity"
             android:exported="true" />
 
+        <activity android:name=".AddNewCarActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>

@@ -2,4 +2,6 @@
     <string name="app_name">MyGarage</string>
     <string name="login">Login</string>
     <string name="mygarage_stiri_auto">MyGarage - Stiri auto</string>
+    <string name="adauga_o_noua_masina">Adauga o noua masina</string>
+    <string name="marca">Marca:</string>
 </resources>
