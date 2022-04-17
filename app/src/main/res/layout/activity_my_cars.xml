@@ -29,9 +29,9 @@
         android:id="@+id/myCarsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="120dp"
         android:layout_below="@+id/toolbar_activity_my_cars"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="120dp"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_activity_my_cars"
         app:layout_constraintVertical_bias="0.0">

@@ -114,7 +114,7 @@
                     android:textSize="15sp"/>
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/editTextAddCarEmissionStandard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40sp"
@@ -179,8 +179,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Dim. roti:"
-                    android:textSize="15sp"
-                    />
+                    android:textSize="15sp" />
 
                 <EditText
                     android:id="@+id/editTextAddCarRimSize"
@@ -212,8 +211,7 @@
                     android:layout_marginLeft="5sp"
                     android:inputType="textPersonName"
                     android:hint="Cat crezi ca valoreaza masina ta?(ex: 4000€)"
-                    android:textSize="15sp"
-                    />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -402,7 +400,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/addTheCarInDB"
+                android:id="@+id/addCarToDB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

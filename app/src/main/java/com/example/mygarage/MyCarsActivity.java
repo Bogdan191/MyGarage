@@ -16,10 +16,14 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.List;
+
 public class MyCarsActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     Button addNewCar;
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,9 +32,9 @@ public class MyCarsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_cars);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom);
-        bottomNavigationView.setSelectedItemId(R.id.menu_bottom_home);
+        bottomNavigationView.setSelectedItemId(R.id.menu_bottom_my_cars);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener( new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -62,6 +66,10 @@ public class MyCarsActivity extends AppCompatActivity {
 
 
         //show the cars from DB my_cars
+        DBHelper dbHelper = new DBHelper(MyCarsActivity.this);
+        List<CarModel> cars = dbHelper.getCars();
+
+        Toast.makeText(MyCarsActivity.this, cars.toString(), Toast.LENGTH_LONG).show();
 
 
     }

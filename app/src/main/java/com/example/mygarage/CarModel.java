@@ -1,5 +1,7 @@
 package com.example.mygarage;
 
+import android.widget.DatePicker;
+
 import java.util.Date;
 
 public class CarModel {
@@ -7,7 +9,7 @@ public class CarModel {
     private int id;
     private String make;
     private String model;
-    private Date manufactured_date;
+    private String manufactured_date;
     private String emission_standard;
     private String engine_capacity;
     private int horse_power;
@@ -18,7 +20,7 @@ public class CarModel {
     private int documents_id;
     private int service_history_id;
 
-    public CarModel(int id, String make, String model, Date manufactured_date, String emission_standard, String engine_capacity, int horse_power, String rim_size, String current_market_value, int odometer, boolean manual_gearbox, int documents_id, int service_history_id) {
+    public CarModel(int id, String make, String model, String manufactured_date, String emission_standard, String engine_capacity, int horse_power, String rim_size, String current_market_value, int odometer, boolean manual_gearbox, int documents_id, int service_history_id) {
         this.id = id;
         this.make = make;
         this.model = model;
@@ -35,6 +37,7 @@ public class CarModel {
     }
 
     public CarModel() {
+
     }
 
     @Override
@@ -80,11 +83,11 @@ public class CarModel {
         this.model = model;
     }
 
-    public Date getManufactured_date() {
+    public String getManufactured_date() {
         return manufactured_date;
     }
 
-    public void setManufactured_date(Date manufactured_date) {
+    public void setManufactured_date(String manufactured_date) {
         this.manufactured_date = manufactured_date;
     }
 
