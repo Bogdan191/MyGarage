@@ -1,8 +1,6 @@
-package com.example.mygarage;
+package com.example.mygarage.adapters;
 
 import android.content.Context;
-import android.net.Uri;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mygarage.R;
+import com.example.mygarage.models.News;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

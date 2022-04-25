@@ -1,4 +1,4 @@
-package com.example.mygarage;
+package com.example.mygarage.models;
 
 public class User {
     public String name, email;

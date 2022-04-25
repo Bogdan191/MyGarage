@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Date;
+import com.example.mygarage.models.CarModel;
 
 public class AddNewCarActivity extends AppCompatActivity {
 
@@ -106,7 +106,7 @@ public class AddNewCarActivity extends AppCompatActivity {
 
             try {
                 newCar = new CarModel(
-                        -1,
+                        carMake+carModel+carManufacturedData+"CarID",
                         carMake,
                         carModel,
                         carManufacturedData,
@@ -117,14 +117,14 @@ public class AddNewCarActivity extends AppCompatActivity {
                         carCurrentMarketValue,
                         carOdometer,
                         carHasManualGearbox,
-                        -1,
-                        -1
+                        "-1",
+                        "-1"
                 );
 
             }catch(Exception e) {
                 Toast.makeText(getApplicationContext(), "Eraore la crearea unei noi masini pentru db!", Toast.LENGTH_SHORT).show();
                 newCar = new CarModel(
-                        -1,
+                        "-1",
                         "error",
                         "error",
                         "error",
@@ -135,8 +135,8 @@ public class AddNewCarActivity extends AppCompatActivity {
                         "error",
                         0,
                         false,
-                        -1,
-                        -1
+                        "0",
+                        "0"
                 );
             }
 

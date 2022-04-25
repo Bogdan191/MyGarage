@@ -12,10 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mygarage.adapters.MyCarsAdapter;
+import com.example.mygarage.models.CarModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyCarsActivity extends AppCompatActivity {
@@ -23,6 +28,9 @@ public class MyCarsActivity extends AppCompatActivity {
     Toolbar toolbar;
     Button addNewCar;
 
+    RecyclerView recyclerViewMyCars;
+    List<CarModel> cars;
+    MyCarsAdapter myCarsAdapter;
 
 
     @Override
@@ -64,15 +72,34 @@ public class MyCarsActivity extends AppCompatActivity {
             }
         });
 
+/*
+        //show the cars from DB my_cars
+        DBHelper dbHelper = new DBHelper(MyCarsActivity.this);
+        cars = dbHelper.getCars();
+
+        Toast.makeText(MyCarsActivity.this, cars.toString(), Toast.LENGTH_LONG).show();
+*/
+
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        recyclerViewMyCars = findViewById(R.id.myCarsList);
+        recyclerViewMyCars.setHasFixedSize(true);
+        recyclerViewMyCars.setLayoutManager(new LinearLayoutManager(this));
 
         //show the cars from DB my_cars
         DBHelper dbHelper = new DBHelper(MyCarsActivity.this);
-        List<CarModel> cars = dbHelper.getCars();
+        cars = dbHelper.getCars();
 
-        Toast.makeText(MyCarsActivity.this, cars.toString(), Toast.LENGTH_LONG).show();
 
+        myCarsAdapter = new MyCarsAdapter(this, (ArrayList<CarModel>) cars);
+        recyclerViewMyCars.setAdapter(myCarsAdapter);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -1,12 +1,8 @@
-package com.example.mygarage;
-
-import android.widget.DatePicker;
-
-import java.util.Date;
+package com.example.mygarage.models;
 
 public class CarModel {
 
-    private int id;
+    private String id;
     private String make;
     private String model;
     private String manufactured_date;
@@ -17,10 +13,10 @@ public class CarModel {
     private String current_market_value;
     private int odometer;
     private boolean manual_gearbox;
-    private int documents_id;
-    private int service_history_id;
+    private String documents_id;
+    private String service_history_id;
 
-    public CarModel(int id, String make, String model, String manufactured_date, String emission_standard, String engine_capacity, int horse_power, String rim_size, String current_market_value, int odometer, boolean manual_gearbox, int documents_id, int service_history_id) {
+    public CarModel(String id, String make, String model, String manufactured_date, String emission_standard, String engine_capacity, int horse_power, String rim_size, String current_market_value, int odometer, boolean manual_gearbox, String documents_id, String service_history_id) {
         this.id = id;
         this.make = make;
         this.model = model;
@@ -59,11 +55,11 @@ public class CarModel {
                 '}';
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -147,19 +143,19 @@ public class CarModel {
         this.manual_gearbox = manual_gearbox;
     }
 
-    public int getDocuments_id() {
+    public String getDocuments_id() {
         return documents_id;
     }
 
-    public void setDocuments_id(int documents_id) {
+    public void setDocuments_id(String documents_id) {
         this.documents_id = documents_id;
     }
 
-    public int getService_history_id() {
+    public String getService_history_id() {
         return service_history_id;
     }
 
-    public void setService_history_id(int service_history_id) {
+    public void setService_history_id(String service_history_id) {
         this.service_history_id = service_history_id;
     }
 }

@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.mygarage.models.CarModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_SERVICE_MADE_DATE = "SERVICE_MADE_DATE";
     public static final String COLUMNS_DETAILS = "DETAILS";
-
+    public static final String SERVICE_HISTORY_TABLE = "SERVICE_HISTORY_TABLE";
+    public static final String DOCUMENTS_TABLE = "DOCUMENTS_TABLE";
 
 
     public DBHelper(@Nullable Context context) {
@@ -45,24 +48,24 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String createTableStatement = "CREATE TABLE " + MY_CARS_TABLE + " (" + COLUMN_CAR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CAR_MAKE + " TEXT, " +
+        String createTableStatement = "CREATE TABLE " + MY_CARS_TABLE + " (" + COLUMN_CAR_ID + " TEXT PRIMARY KEY, " + COLUMN_CAR_MAKE + " TEXT, " +
                 COLUMN_CAR_MODEL + " TEXT, " + COLUMN_CAR_MANUFACTURED_DATA + " TEXT, " + COLUMN_CAR_EMISSION + " TEXT, " + COLUMN_CAR_ENGINE + " TEXT," +
                 " " + COLUMN_CAR_HP + " INTEGER, " + COLUMN_CAR_RIM_SIZE + " TEXT, " +
                 COLUMN_CAR_CURRENT_VALUE + ", " + COLUMN_CAR_ODOMETER + " INTEGER, " + COLUMN_CAR_MANUAL_GEARBOX + " BOOL, " +
-                COLUMN_DOCUMENTS_ID + " INTEGER, " + COLUMN_SERVICE_HISTORY_ID + " INTEGER, CONSTRAINT FK_DOCUMENTS FOREIGN KEY("+COLUMN_DOCUMENTS_ID + ")" +
-                " REFERENCES DOCUMENTS_TABLE(" + COLUMN_CAR_ID + ")," +
-                " CONSTRAINT FK_SERVICE FOREIGN KEY(" + COLUMN_SERVICE_HISTORY_ID + ") REFERENCES SERVICE_HISTORY_TABLE(" + COLUMN_CAR_ID + ")  )";
+                COLUMN_DOCUMENTS_ID + " TEXT, " + COLUMN_SERVICE_HISTORY_ID + " TEXT, CONSTRAINT FK_DOCUMENTS FOREIGN KEY("+COLUMN_DOCUMENTS_ID + ")" +
+                " REFERENCES " + DOCUMENTS_TABLE + "(" + COLUMN_CAR_ID + ")," +
+                " CONSTRAINT FK_SERVICE FOREIGN KEY(" + COLUMN_SERVICE_HISTORY_ID + ") REFERENCES " + SERVICE_HISTORY_TABLE + "(" + COLUMN_CAR_ID + ")  )";
 
         db.execSQL(createTableStatement);
 
 
-        createTableStatement = "CREATE TABLE DOCUMENTS_TABLE (" + COLUMN_DOCUMENTS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,  " + COLUMN_ITP_END_DATE + " TEXT, " + COLUMN_INSURANCE_END_DATE + " TEXT, " +
-                COLUMN_ROAD_TAX + " TEXT, CAR_" + COLUMN_CAR_ID + " INTEGER, CONSTRAINT FK_CAR_ID FOREIGN KEY(CAR_ID) REFERENCES " + MY_CARS_TABLE + "(" + COLUMN_CAR_ID + "))";
+        createTableStatement = "CREATE TABLE " + DOCUMENTS_TABLE + " (" + COLUMN_DOCUMENTS_ID + " TEXT PRIMARY KEY,  " + COLUMN_ITP_END_DATE + " TEXT, " + COLUMN_INSURANCE_END_DATE + " TEXT, " +
+                COLUMN_ROAD_TAX + " TEXT, CAR_" + COLUMN_CAR_ID + " TEXT, CONSTRAINT FK_CAR_ID FOREIGN KEY(CAR_ID) REFERENCES " + MY_CARS_TABLE + "(" + COLUMN_CAR_ID + "))";
 
         db.execSQL(createTableStatement);
 
 
-        createTableStatement = "CREATE TABLE SERVICE_HISTORY_TABLE(" + COLUMN_SERVICE_HISTORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_SERVICE_MADE_DATE + " TEXT, " + COLUMNS_DETAILS + " TEXT)";
+        createTableStatement = "CREATE TABLE " + SERVICE_HISTORY_TABLE + "(" + COLUMN_SERVICE_HISTORY_ID + " TEXT PRIMARY KEY, " + COLUMN_SERVICE_MADE_DATE + " TEXT, " + COLUMNS_DETAILS + " TEXT)";
 
         db.execSQL(createTableStatement);
 
@@ -71,7 +74,10 @@ public class DBHelper extends SQLiteOpenHelper {
     //folosita atunci cand versiunea bazei de date se schimba
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS "+ MY_CARS_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS "+ DOCUMENTS_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS "+ SERVICE_HISTORY_TABLE + ";");
+        onCreate(db);
     }
 
 
@@ -81,6 +87,7 @@ public class DBHelper extends SQLiteOpenHelper {
         //hashmap
         ContentValues cv =  new ContentValues();
 
+        cv.put(COLUMN_CAR_ID, carModel.getId());
         cv.put(COLUMN_CAR_MAKE, carModel.getMake());
         cv.put(COLUMN_CAR_MODEL, carModel.getModel());
         cv.put(COLUMN_CAR_MANUFACTURED_DATA, carModel.getManufactured_date());
@@ -109,7 +116,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             //mergi printre resultate si pune-le in lista
             do {
-                int carID = cursor.getInt(0);
+                String carID = cursor.getString(0);
                 String carMake = cursor.getString(1);
                 String carModel = cursor.getString(2);
                 String carManufacturedData = cursor.getString(3);
@@ -120,8 +127,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 String carCurrentValue = cursor.getString(8);
                 int carOdometer = cursor.getInt(9);
                 boolean carHasManualGearbox = cursor.getInt(10) == 1 ? true : false;
-                int documentsId = cursor.getInt(11);
-                int serviceHistoryId = cursor.getInt(12);
+                String documentsId = cursor.getString(11);
+                String serviceHistoryId = cursor.getString(12);
 
                 CarModel carModel1 = new CarModel(carID, carMake, carModel, carManufacturedData, carEmission, carEngine, carHP, carRimSize,
                         carCurrentValue, carOdometer, carHasManualGearbox,documentsId, serviceHistoryId);

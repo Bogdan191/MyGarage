@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:orientation="horizontal">
 
@@ -13,7 +14,8 @@
             android:id="@+id/myCarImage"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:contentDescription="Image section for the news"></ImageView>
+            android:contentDescription="Image section for the news"
+            tools:srcCompat="@tools:sample/backgrounds/scenic"></ImageView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,14 +35,15 @@
                 android:layout_marginBottom="15dp"
                 android:text="Nume si model masina"
                 android:textSize="25sp" />
+
             <TextView
                 android:id="@+id/myCarDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="0dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="0dp"
                 android:text="Desciere masina"
                 android:textSize="18sp" />
 
