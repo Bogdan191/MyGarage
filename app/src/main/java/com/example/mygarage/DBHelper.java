@@ -151,4 +151,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return returnCarsList;
     }
+
+    public CarModel getCarById(String carId) {
+
+        List<CarModel> cars = getCars();
+
+        for (CarModel a: cars) {
+            if(a.getId().equals(carId)){
+                return a;
+            }
+        }
+
+        return null;
+    }
+
+    
 }

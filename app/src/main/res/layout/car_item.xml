@@ -5,10 +5,12 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/goToCarDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:clickable="true">
 
         <ImageView
             android:id="@+id/myCarImage"
