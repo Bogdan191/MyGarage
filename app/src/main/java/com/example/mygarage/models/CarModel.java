@@ -13,10 +13,11 @@ public class CarModel {
     private String current_market_value;
     private int odometer;
     private boolean manual_gearbox;
+    private byte[] carImage;
     private String documents_id;
     private String service_history_id;
 
-    public CarModel(String id, String make, String model, String manufactured_date, String emission_standard, String engine_capacity, int horse_power, String rim_size, String current_market_value, int odometer, boolean manual_gearbox, String documents_id, String service_history_id) {
+    public CarModel(String id, String make, String model, String manufactured_date, String emission_standard, String engine_capacity, int horse_power, String rim_size, String current_market_value, int odometer, boolean manual_gearbox, byte[] carImage, String documents_id, String service_history_id) {
         this.id = id;
         this.make = make;
         this.model = model;
@@ -28,6 +29,7 @@ public class CarModel {
         this.current_market_value = current_market_value;
         this.odometer = odometer;
         this.manual_gearbox = manual_gearbox;
+        this.carImage = carImage;
         this.documents_id = documents_id;
         this.service_history_id = service_history_id;
     }
@@ -141,6 +143,14 @@ public class CarModel {
 
     public void setManual_gearbox(boolean manual_gearbox) {
         this.manual_gearbox = manual_gearbox;
+    }
+
+    public byte[] getCarImage() {
+        return carImage;
+    }
+
+    public void setCarImage(byte[] carImage) {
+        this.carImage = carImage;
     }
 
     public String getDocuments_id() {

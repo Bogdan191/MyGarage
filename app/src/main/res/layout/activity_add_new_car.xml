@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Data fabricarii"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
                 <DatePicker
                     android:id="@+id/datePickerAddCarManufacturedData"
@@ -93,11 +93,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:calendarViewShown="false"
                     android:datePickerMode="spinner"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:textSize="15sp"
-                    android:calendarViewShown="false" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -254,7 +254,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10sp"
+                android:orientation="vertical">
 
+                <ImageView
+                    android:id="@+id/addCarImageView"
+                    android:layout_width="512px"
+                    android:layout_height="512px"
+                    android:layout_gravity="center"
+                    tools:srcCompat="@drawable/ic_my_cars"/>
+                <ImageButton
+                    android:id="@+id/buttonAddCarImage"
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/black"
+                    android:src="@drawable/ic_add_car_image"/>
+            </LinearLayout>
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="match_parent"
