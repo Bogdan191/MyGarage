@@ -45,6 +45,8 @@ public class AddNewCarActivity extends AppCompatActivity {
     private EditText et_service_history_id;
 
 
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -56,7 +58,7 @@ public class AddNewCarActivity extends AppCompatActivity {
         btn_addCarToDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addTheCarToDB();
+                addTheCarInfoToDB();
             }
         });
 
@@ -70,7 +72,6 @@ public class AddNewCarActivity extends AppCompatActivity {
 
 
         //adauga referinte catre campurile care contin date despre masina care trebuie adaugata in baza de date
-
         et_make = findViewById(R.id.editTextAddCarMark);
         et_model = findViewById(R.id.editTextAddCarModel);
         manufactured_data = findViewById(R.id.datePickerAddCarManufacturedData);
@@ -84,8 +85,8 @@ public class AddNewCarActivity extends AppCompatActivity {
         iv_carImage = findViewById(R.id.addCarImageView);
 
     }
-
-    private void addTheCarToDB(){
+    //Adauga in baza de date 'cars.db', informatiile depsre masina, documente si detaliile despre istoric service in tabelele aferente
+    private void addTheCarInfoToDB(){
 
         String carMake, carModel , carEmission, carEngine, carRimSize, carCurrentMarketValue;
         byte[] carImage= new byte[0];
@@ -126,8 +127,8 @@ public class AddNewCarActivity extends AppCompatActivity {
                 || carRimSize.length() == 0 || carCurrentMarketValue.length() == 0) {
             Toast.makeText(getApplicationContext(), "Te rog completeaza toate campurile!", Toast.LENGTH_SHORT).show();
         } else {
-            CarModel newCar;
 
+            CarModel newCar;
             try {
                 newCar = new CarModel(
                         carMake+carModel+carManufacturedData+"CarID",
@@ -169,7 +170,12 @@ public class AddNewCarActivity extends AppCompatActivity {
 
             DBHelper dbHelper = new DBHelper(AddNewCarActivity.this);
             boolean addCarSuccess = dbHelper.addCarToDB(newCar);
-            Toast.makeText(getApplicationContext(), "Success " + addCarSuccess, Toast.LENGTH_SHORT).show();
+
+            if(addCarSuccess) {
+                startActivity(new Intent(getApplicationContext(), MyCarsActivity.class));
+            } else {
+                Toast.makeText(getApplicationContext(), "Eraore la adaugarea masinii in baza de date. Reincearca! ", Toast.LENGTH_SHORT).show();
+            }
         }
 
 

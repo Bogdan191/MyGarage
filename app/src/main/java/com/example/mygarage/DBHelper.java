@@ -165,5 +165,16 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    
+    public boolean deleteCar(String carId) {
+
+        String queryString = " DELETE FROM " + MY_CARS_TABLE + " WHERE " + COLUMN_CAR_ID + " LIKE '%" + carId + "%'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(queryString);
+        if(getCarById(carId) == null){
+            return true;
+        }
+        return false;
+    }
+
+
 }

@@ -18,14 +18,35 @@
 
     <TextView
         android:id="@+id/textViewCarDetails"
-        android:gravity="center"
-        android:layout_width="280dp"
-        android:layout_height="143dp"
+        android:layout_width="335dp"
+        android:layout_height="356dp"
         android:layout_below="@+id/toolbar_activity_my_cars"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="143dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="185dp"
+        android:gravity="center"
+        android:textSize="16sp"
         android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/imageViewCarDetails"
+        android:layout_width="170dp"
+        android:layout_height="167dp"
+        android:layout_below="@+id/toolbar_activity_my_cars"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="115dp"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <Button
+        android:id="@+id/buttonDeleteCarFromDB"
+        android:layout_width="194dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewCarDetails"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="118dp"
+        android:text="Sterge masina" />
 
 
 </RelativeLayout>
