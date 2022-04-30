@@ -1,6 +1,9 @@
 package com.example.mygarage.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Browser;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +46,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         holder.description.setText(news.getDescription());
 
         Picasso.get().load(news.getImageLink()).into(holder.imageNews);
+
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(news.getLinkTo()));
+                context.startActivity(browser);
+            }
+        });
     }
 
     @Override

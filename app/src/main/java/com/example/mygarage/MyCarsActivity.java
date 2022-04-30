@@ -72,14 +72,6 @@ public class MyCarsActivity extends AppCompatActivity {
             }
         });
 
-/*
-        //show the cars from DB my_cars
-        DBHelper dbHelper = new DBHelper(MyCarsActivity.this);
-        cars = dbHelper.getCars();
-
-        Toast.makeText(MyCarsActivity.this, cars.toString(), Toast.LENGTH_LONG).show();
-*/
-
     }
 
     @Override
@@ -93,7 +85,6 @@ public class MyCarsActivity extends AppCompatActivity {
         //show the cars from DB my_cars
         DBHelper dbHelper = new DBHelper(MyCarsActivity.this);
         cars = dbHelper.getCars();
-
 
         myCarsAdapter = new MyCarsAdapter(this, (ArrayList<CarModel>) cars);
         recyclerViewMyCars.setAdapter(myCarsAdapter);

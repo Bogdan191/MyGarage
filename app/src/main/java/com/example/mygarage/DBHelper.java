@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.example.mygarage.models.CarModel;
+import com.example.mygarage.models.DocumentsModel;
+import com.example.mygarage.models.ServiceHistoryModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +64,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
         createTableStatement = "CREATE TABLE " + DOCUMENTS_TABLE + " (" + COLUMN_DOCUMENTS_ID + " TEXT PRIMARY KEY,  " + COLUMN_ITP_END_DATE + " TEXT, " + COLUMN_INSURANCE_END_DATE + " TEXT, " +
-                COLUMN_ROAD_TAX + " TEXT, CAR_" + COLUMN_CAR_ID + " TEXT, CONSTRAINT FK_CAR_ID FOREIGN KEY(CAR_ID) REFERENCES " + MY_CARS_TABLE + "(" + COLUMN_CAR_ID + "))";
+                COLUMN_ROAD_TAX + " TEXT, " + COLUMN_CAR_ID + " TEXT, CONSTRAINT FK_CAR_ID FOREIGN KEY(" + COLUMN_CAR_ID + ") REFERENCES " + MY_CARS_TABLE + "(" + COLUMN_CAR_ID + "))";
 
         db.execSQL(createTableStatement);
 
@@ -81,7 +83,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ SERVICE_HISTORY_TABLE);
         onCreate(db);
     }
-
 
     public boolean addCarToDB(CarModel carModel){
 
@@ -147,8 +148,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
         }
-
-
+        db.close();
         return returnCarsList;
     }
 
@@ -171,10 +171,118 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL(queryString);
         if(getCarById(carId) == null){
+
+            queryString = " DELETE FROM " + DOCUMENTS_TABLE + " WHERE " + COLUMN_CAR_ID + " LIKE '%" + carId + "%'";
+            db.execSQL(queryString);
+
+            String serviceID = carId.concat("serviceHistory");
+            queryString = " DELETE FROM " + SERVICE_HISTORY_TABLE + " WHERE " + COLUMN_SERVICE_HISTORY_ID + " LIKE '%" + serviceID + "%'";
+            db.execSQL(queryString);
+
+            db.close();
+
             return true;
         }
+        db.close();
         return false;
     }
+
+    public boolean addDocsToDB(DocumentsModel documentsModel) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        //hashmap
+        ContentValues cv =  new ContentValues();
+
+        cv.put(COLUMN_DOCUMENTS_ID, documentsModel.getId());
+        cv.put(COLUMN_ITP_END_DATE, documentsModel.getItp_end_date());
+        cv.put(COLUMN_INSURANCE_END_DATE, documentsModel.getInsurance_end_date());
+        cv.put(COLUMN_ROAD_TAX, documentsModel.getRoad_tax());
+        cv.put(COLUMN_CAR_ID, documentsModel.getCar_id());
+
+        long insert = db.insert(DOCUMENTS_TABLE, null, cv);
+        return insert != -1;
+
+    }
+
+    public DocumentsModel getDocumentsOfCar(String carId) {
+        String queryString = "SELECT * FROM " + DOCUMENTS_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if(cursor.moveToFirst()) {
+            //mergi printre resultate si pune-le in lista
+            do {
+                String docRefCarID = cursor.getString(4);
+                if(docRefCarID.equals(carId)) {
+                    String docId = cursor.getString(0);
+                    String docITP = cursor.getString(1);
+                    String docInsurance = cursor.getString(2);
+                    String docRoadTax = cursor.getString(3);
+
+                    DocumentsModel document = new DocumentsModel(docId, docITP, docInsurance, docRoadTax, docRefCarID);
+                    return document;
+                }
+
+            }while(cursor.moveToNext());
+
+        }else {
+
+            //TODO: eroare la selectarea datelor din tabelul "documents table"
+        }
+
+        db.close();
+        return null;
+    }
+
+    public boolean addServiceHistoryToDB(ServiceHistoryModel serviceHistoryModel) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        //hashmap
+        ContentValues cv =  new ContentValues();
+
+        cv.put(COLUMN_SERVICE_HISTORY_ID, serviceHistoryModel.getId());
+        cv.put(COLUMN_SERVICE_MADE_DATE, serviceHistoryModel.getService_made_date());
+        cv.put(COLUMNS_DETAILS, serviceHistoryModel.getDetails());
+
+        long insert = db.insert(SERVICE_HISTORY_TABLE, null, cv);
+        return insert != -1;
+
+    }
+
+    public ServiceHistoryModel getServiceHistoryOfCar(String carId) {
+        String queryString = "SELECT * FROM " + SERVICE_HISTORY_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if(cursor.moveToFirst()) {
+            //mergi printre resultate si pune-le in lista
+            do {
+
+                String serviceID = cursor.getString(0);
+                String referenceToCar = carId.concat("serviceHistory");
+                if(referenceToCar.equals(serviceID)) {
+
+                    String serviceMadeDate = cursor.getString(1);
+                    String serviceDetails = cursor.getString(2);
+
+                    ServiceHistoryModel serviceHistoryModel = new ServiceHistoryModel(serviceID, serviceMadeDate, serviceDetails);
+                    return serviceHistoryModel;
+                }
+
+            }while(cursor.moveToNext());
+
+        }else {
+
+            //TODO: eroare la selectarea datelor din tabelul "service table"
+        }
+
+        db.close();
+        return null;
+    }
+
+
+
+
 
 
 }

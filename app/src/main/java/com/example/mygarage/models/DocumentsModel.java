@@ -2,13 +2,13 @@ package com.example.mygarage.models;
 
 public class DocumentsModel {
 
-    private int id;
+    private String id;
     private String itp_end_date;
     private String insurance_end_date;
     private String road_tax;
-    private int car_id;
+    private String car_id;
 
-    public DocumentsModel(int id, String itp_end_date, String insurance_end_date, String road_tax, int car_id) {
+    public DocumentsModel(String id, String itp_end_date, String insurance_end_date, String road_tax, String car_id) {
         this.id = id;
         this.itp_end_date = itp_end_date;
         this.insurance_end_date = insurance_end_date;
@@ -20,11 +20,11 @@ public class DocumentsModel {
 
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -52,11 +52,11 @@ public class DocumentsModel {
         this.road_tax = road_tax;
     }
 
-    public int getCar_id() {
+    public String getCar_id() {
         return car_id;
     }
 
-    public void setCar_id(int car_id) {
+    public void setCar_id(String car_id) {
         this.car_id = car_id;
     }
 }

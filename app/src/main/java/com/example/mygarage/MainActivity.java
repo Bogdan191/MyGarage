@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         mAuth = FirebaseAuth.getInstance();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom);
@@ -74,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
+        //comanda de schimbat tema
+        //this.setTheme(R.style.Theme_Design_Light_NoActionBar);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

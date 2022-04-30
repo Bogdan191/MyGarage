@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyCarsActivity">
+    tools:context=".CarRUDActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_activity_my_cars"
@@ -22,20 +22,24 @@
         android:layout_height="356dp"
         android:layout_below="@+id/toolbar_activity_my_cars"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="185dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="183dp"
+        android:layout_marginEnd="37dp"
         android:gravity="center"
-        android:textSize="16sp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/imageViewCarDetails"
-        android:layout_width="170dp"
-        android:layout_height="167dp"
+        android:layout_width="wrap_content"
+        android:layout_height="162dp"
         android:layout_below="@+id/toolbar_activity_my_cars"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="115dp"
-        android:layout_marginTop="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="118dp"
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <Button
@@ -43,9 +47,11 @@
         android:layout_width="194dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewCarDetails"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="118dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="109dp"
         android:text="Sterge masina" />
 
 

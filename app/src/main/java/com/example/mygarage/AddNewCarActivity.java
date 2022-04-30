@@ -18,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mygarage.models.CarModel;
+import com.example.mygarage.models.DocumentsModel;
+import com.example.mygarage.models.ServiceHistoryModel;
 
 import java.io.ByteArrayOutputStream;
 
@@ -29,7 +31,7 @@ public class AddNewCarActivity extends AppCompatActivity {
     Button btn_addCarToDB;
     ImageButton btn_selectCarImage;
 
-    //Car fields
+    //Campurile cu date despre masina
     private EditText et_make;
     private EditText et_model;
     private DatePicker manufactured_data;
@@ -41,8 +43,14 @@ public class AddNewCarActivity extends AppCompatActivity {
     private EditText et_odometer;
     private CheckBox manual_gearbox_checkbox;
     private ImageView iv_carImage;
-    private EditText et_documents_id;
-    private EditText et_service_history_id;
+
+    //Campurile cu date despre documentele masinii
+    private DatePicker itp_end_date;
+    private DatePicker insurance_end_date;
+    private DatePicker road_tax;
+
+
+
 
 
 
@@ -84,6 +92,11 @@ public class AddNewCarActivity extends AppCompatActivity {
         manual_gearbox_checkbox = findViewById(R.id.checkboxAddCarManualGearbox);
         iv_carImage = findViewById(R.id.addCarImageView);
 
+        // adauga referinte catre campurile care contin date despre documentele aferente masinii
+        itp_end_date = findViewById(R.id.datePickerAddCarItpEndDate);
+        insurance_end_date = findViewById(R.id.datePickerAddCarInsuranceEndDate);
+        road_tax = findViewById(R.id.datePickerAddCarRoadTaxEndDate);
+
     }
     //Adauga in baza de date 'cars.db', informatiile depsre masina, documente si detaliile despre istoric service in tabelele aferente
     private void addTheCarInfoToDB(){
@@ -123,12 +136,20 @@ public class AddNewCarActivity extends AppCompatActivity {
         carImage = baos.toByteArray();
 
 
+        //get documents inputs
+        String docITP, docInsurance, docRoadTax;
+        docITP = itp_end_date.getDayOfMonth() + "/" + itp_end_date.getMonth() + "/" + itp_end_date.getYear();
+        docInsurance = insurance_end_date.getDayOfMonth() + "/" + insurance_end_date.getMonth() + "/" + insurance_end_date.getYear();
+        docRoadTax = road_tax.getDayOfMonth() + "/" + road_tax.getMonth() + "/" + road_tax.getYear();
+
         if(carModel.length() == 0 || carMake.length() == 0 || carEmission.length() == 0 || carEngine.length() == 0
                 || carRimSize.length() == 0 || carCurrentMarketValue.length() == 0) {
             Toast.makeText(getApplicationContext(), "Te rog completeaza toate campurile!", Toast.LENGTH_SHORT).show();
         } else {
 
             CarModel newCar;
+            DocumentsModel documents;
+            ServiceHistoryModel serviceHistory;
             try {
                 newCar = new CarModel(
                         carMake+carModel+carManufacturedData+"CarID",
@@ -146,6 +167,16 @@ public class AddNewCarActivity extends AppCompatActivity {
                         "-1",
                         "-1"
                 );
+                documents = new DocumentsModel(
+                        carMake + carModel + carManufacturedData + "DocID",
+                        docITP,
+                        docInsurance,
+                        docRoadTax,
+                        carMake + carModel + carManufacturedData+"CarID"
+                );
+
+
+
 
             }catch(Exception e) {
                 Toast.makeText(getApplicationContext(), "Eraore la crearea unei noi masini pentru db!", Toast.LENGTH_SHORT).show();
@@ -165,21 +196,25 @@ public class AddNewCarActivity extends AppCompatActivity {
                         "0",
                         "0"
                 );
+                documents = new DocumentsModel("0",
+                        "0",
+                        "0",
+                        "0",
+                        "0");
+                serviceHistory = new ServiceHistoryModel("0",
+                        "0",
+                        "0");
             }
-
 
             DBHelper dbHelper = new DBHelper(AddNewCarActivity.this);
             boolean addCarSuccess = dbHelper.addCarToDB(newCar);
+            dbHelper = new DBHelper(AddNewCarActivity.this);
+            boolean addDocuments = dbHelper.addDocsToDB(documents);
 
-            if(addCarSuccess) {
-                startActivity(new Intent(getApplicationContext(), MyCarsActivity.class));
-            } else {
-                Toast.makeText(getApplicationContext(), "Eraore la adaugarea masinii in baza de date. Reincearca! ", Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(getApplicationContext(), "Success " + addCarSuccess + addDocuments, Toast.LENGTH_SHORT).show();
+
+
         }
-
-
-
     }
 
     private void chooseImage() {
@@ -201,7 +236,6 @@ public class AddNewCarActivity extends AppCompatActivity {
                 }
             }
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

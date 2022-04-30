@@ -45,11 +45,14 @@ public class CarRUDActivity extends AppCompatActivity {
         });
 
 
+        this.setTheme(R.style.Theme_Design_Light_NoActionBar);
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
     }
 
     private void deleteCarFromDB(String carId) {

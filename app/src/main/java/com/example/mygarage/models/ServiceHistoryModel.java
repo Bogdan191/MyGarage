@@ -2,11 +2,11 @@ package com.example.mygarage.models;
 
 public class ServiceHistoryModel {
 
-    private int id;
+    private String id;
     private String service_made_date;
     private String details;
 
-    public ServiceHistoryModel(int id, String service_made_date, String details) {
+    public ServiceHistoryModel(String id, String service_made_date, String details) {
         this.id = id;
         this.service_made_date = service_made_date;
         this.details = details;
@@ -16,11 +16,11 @@ public class ServiceHistoryModel {
 
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
