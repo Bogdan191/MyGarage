@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/my_car_details"
+        android:icon="@drawable/ic_my_cars"
+        android:title="Masina mea"
+        />
+    <item
+        android:id="@+id/my_car_docs"
+        android:icon="@drawable/ic_car_documents"
+        android:title="Documente"
+        />
+
+    <item
+        android:id="@+id/my_car_service_history"
+        android:icon="@drawable/ic_service_history_car"
+        android:title="Istoric service"
+        />
+
+</menu>
