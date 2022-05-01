@@ -210,7 +210,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5sp"
                     android:inputType="textPersonName"
-                    android:hint="Cat crezi ca valoreaza masina ta?(ex: 4000€)"
+                    android:hint="Valoarea actuala?(ex: 4000€)"
                     android:textSize="15sp" />
             </LinearLayout>
 

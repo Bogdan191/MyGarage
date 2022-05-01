@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -49,11 +50,9 @@ public class AddNewCarActivity extends AppCompatActivity {
     private DatePicker insurance_end_date;
     private DatePicker road_tax;
 
-
-
-
-
-
+    //Campurile care contin date despre istoricul service
+    private DatePicker service_date;
+    private EditText et_service_details;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,6 +96,11 @@ public class AddNewCarActivity extends AppCompatActivity {
         insurance_end_date = findViewById(R.id.datePickerAddCarInsuranceEndDate);
         road_tax = findViewById(R.id.datePickerAddCarRoadTaxEndDate);
 
+        // adauga referinte catre campurile care contin date despre istoricul service
+        service_date = findViewById(R.id.datePickerAddCarServiceDate);
+        et_service_details = findViewById(R.id.editTextAddCarServiceDetails);
+
+
     }
     //Adauga in baza de date 'cars.db', informatiile depsre masina, documente si detaliile despre istoric service in tabelele aferente
     private void addTheCarInfoToDB(){
@@ -107,15 +111,7 @@ public class AddNewCarActivity extends AppCompatActivity {
         boolean carHasManualGearbox;
         String carManufacturedData;
 
-        //in cazul in care caii putere si rulajul nu sunt definite, seteaza textul la -1 pentru a evita anumite erori
-        if(et_horse_power.getText().toString().length() == 0){
-            Toast.makeText(getApplicationContext(), "Te rog defineste caii putere", Toast.LENGTH_SHORT).show();
-            et_horse_power.setText("-1");
-        }
-        if(et_odometer.getText().toString().length() == 0){
-            Toast.makeText(getApplicationContext(), "Te rog introduce rulajul masinii", Toast.LENGTH_SHORT).show();
-            et_odometer.setText("-1");
-        }
+
 
 
         carMake = et_make.getText().toString();
@@ -123,29 +119,75 @@ public class AddNewCarActivity extends AppCompatActivity {
         carManufacturedData = manufactured_data.getDayOfMonth() + "/" + manufactured_data.getMonth() + "/" + manufactured_data.getYear();
         carEmission = et_emission_standard.getText().toString();
         carEngine = et_engine_capacity.getText().toString();
-        carHP = Integer.parseInt(et_horse_power.getText().toString());
         carRimSize = et_rim_size.getText().toString();
         carCurrentMarketValue = et_current_market_value.getText().toString();
-        carOdometer = Integer.parseInt(et_odometer.getText().toString());
         carHasManualGearbox = manual_gearbox_checkbox.isChecked();
 
-        //set carImage var
+        try {
+            carHP = Integer.parseInt(et_horse_power.getText().toString());
+
+        } catch(NumberFormatException e) {
+            Toast.makeText(getApplicationContext(), "Te rog defineste caii putere(valoare numerica)", Toast.LENGTH_SHORT).show();
+            et_horse_power.requestFocus();
+            return;
+        }
+        try {
+            carOdometer = Integer.parseInt(et_odometer.getText().toString());
+
+        }catch(NumberFormatException e) {
+            Toast.makeText(getApplicationContext(), "Te rog introduce rulajul masinii(valoare numerica)", Toast.LENGTH_SHORT).show();
+            et_odometer.requestFocus();
+            return;
+        }
+
+        //seteaza imaginea masinii in model
+        if(iv_carImage.getDrawable() == null) {
+            Toast.makeText(getApplicationContext(), "Alegeti o imagine pentru masina dvs.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Bitmap bitmapCarImage = ((BitmapDrawable) iv_carImage.getDrawable()).getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmapCarImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         carImage = baos.toByteArray();
 
 
-        //get documents inputs
+        //obitne datele despre documente din UI pentru a putea fi salvate
         String docITP, docInsurance, docRoadTax;
         docITP = itp_end_date.getDayOfMonth() + "/" + itp_end_date.getMonth() + "/" + itp_end_date.getYear();
         docInsurance = insurance_end_date.getDayOfMonth() + "/" + insurance_end_date.getMonth() + "/" + insurance_end_date.getYear();
         docRoadTax = road_tax.getDayOfMonth() + "/" + road_tax.getMonth() + "/" + road_tax.getYear();
 
-        if(carModel.length() == 0 || carMake.length() == 0 || carEmission.length() == 0 || carEngine.length() == 0
-                || carRimSize.length() == 0 || carCurrentMarketValue.length() == 0) {
-            Toast.makeText(getApplicationContext(), "Te rog completeaza toate campurile!", Toast.LENGTH_SHORT).show();
-        } else {
+        //obtine datele despre istoricul service
+        String serviceDate;
+        String serviceDetails;
+        serviceDate = service_date.getDayOfMonth() + "/" + service_date.getMonth() + "/" + service_date.getYear();
+        serviceDetails = et_service_details.getText().toString();
+
+        if(carMake.isEmpty()) {
+            et_make.setError("Completati marca masinii!");
+            et_make.requestFocus();
+            return;
+        }
+        if(carModel.isEmpty()) {
+            et_model.setError("Completati modelul masinii!");
+            et_model.requestFocus();
+            return;
+        }
+        if(carEmission.isEmpty()) {
+            et_emission_standard.setError("Completati in mod corect acest camp! (Ex: Euro 5, EURO 5)");
+            et_emission_standard.requestFocus();
+            return;
+        }
+        if(carEngine.isEmpty()) {
+            et_engine_capacity.setError("Completati acest camp cu capacitatea motorului masinii!");
+            et_engine_capacity.requestFocus();
+            return;
+        }
+        if(carCurrentMarketValue.isEmpty()) {
+            et_current_market_value.setError("Scrieti ce valoare credeti ca are masina acum.");
+            et_current_market_value.requestFocus();
+            return;
+        }
 
             CarModel newCar;
             DocumentsModel documents;
@@ -174,10 +216,11 @@ public class AddNewCarActivity extends AppCompatActivity {
                         docRoadTax,
                         carMake + carModel + carManufacturedData+"CarID"
                 );
-
-
-
-
+                serviceHistory = new ServiceHistoryModel(
+                        carMake+carModel+carManufacturedData+"CarIDserviceHistory",
+                        serviceDate,
+                        serviceDetails
+                );
             }catch(Exception e) {
                 Toast.makeText(getApplicationContext(), "Eraore la crearea unei noi masini pentru db!", Toast.LENGTH_SHORT).show();
                 newCar = new CarModel(
@@ -211,10 +254,17 @@ public class AddNewCarActivity extends AppCompatActivity {
             dbHelper = new DBHelper(AddNewCarActivity.this);
             boolean addDocuments = dbHelper.addDocsToDB(documents);
 
-            Toast.makeText(getApplicationContext(), "Success " + addCarSuccess + addDocuments, Toast.LENGTH_SHORT).show();
+            dbHelper = new DBHelper(AddNewCarActivity.this);
+            boolean addServiceHistory = dbHelper.addServiceHistoryToDB(serviceHistory);
+            if(addCarSuccess && addDocuments && addServiceHistory) {
+                startActivity(new Intent(getApplicationContext(), CarRUDActivity.class));
+                Toast.makeText(getApplicationContext(), "Success " + addCarSuccess + " " +  addDocuments + " " + addServiceHistory, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Eraore la salvarea datelor in baza de date. Va rugam, reincercati! ", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
 
-        }
     }
 
     private void chooseImage() {
