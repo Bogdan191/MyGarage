@@ -32,6 +32,11 @@
             android:exported="true" />
         <activity android:name=".CarRUDActivity"
             android:exported="true" />
+        <activity android:name=".CarDocsActivity"
+            android:exported="true" />
+        <activity android:name=".CarServiceHistoryActivity"
+            android:exported="true" />
+
 
 
     </application>

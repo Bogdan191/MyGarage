@@ -80,10 +80,14 @@ public class CarRUDActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Sunteti deja pe aceasta sectiune!", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.my_car_docs:
-                        Toast.makeText(getApplicationContext(), "Aceasta optiune nu este disponibila momentan!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), CarDocsActivity.class);
+                        intent.putExtra("CAR_ID", car.getId());
+                        startActivity(intent);
                         return true;
                     case R.id.my_car_service_history:
-                        Toast.makeText(getApplicationContext(), "Aceasta optiune nu este disponibila momentan", Toast.LENGTH_SHORT).show();
+                        Intent intent2 = new Intent(getApplicationContext(), CarServiceHistoryActivity.class);
+                        intent2.putExtra("CAR_ID", car.getId());
+                        startActivity(intent2);
                         return true;
                     default:
                         throw new IllegalStateException("Unexpected value: " + menuItem.getItemId());

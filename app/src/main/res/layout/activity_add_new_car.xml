@@ -265,7 +265,8 @@
                     android:layout_width="512px"
                     android:layout_height="512px"
                     android:layout_gravity="center"
-                    tools:srcCompat="@drawable/ic_my_cars"/>
+                    android:background="@drawable/ic_my_cars"
+                    android:scaleType="centerInside" />
                 <ImageButton
                     android:id="@+id/buttonAddCarImage"
                     android:layout_width="50sp"

@@ -10,32 +10,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mygarage.models.CarModel;
-import com.example.mygarage.models.DocumentsModel;
+import com.example.mygarage.models.ServiceHistoryModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class CarDocsActivity extends AppCompatActivity {
+public class CarServiceHistoryActivity extends AppCompatActivity {
 
     private String carId;
-    TextView tv_carDocs;
+    private TextView tv_car_service_history;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_car_docs);
+        setContentView(R.layout.activity_car_service_history);
 
-        //gaseste documentele masinii dupa id-ul acesteia
-        String carId = getIntent().getStringExtra("CAR_ID");
+        carId = getIntent().getStringExtra("CAR_ID");
+        DBHelper dbHelper = new DBHelper(CarServiceHistoryActivity.this);
+        ServiceHistoryModel carServiceHistory = dbHelper.getServiceHistoryOfCar(carId);
 
-        tv_carDocs = findViewById(R.id.tvCarDocs);
-        DBHelper dbHelper = new DBHelper(CarDocsActivity.this);
-        DocumentsModel carDocsModel = dbHelper.getDocumentsOfCar(carId);
-        tv_carDocs.setText("Itp valabil pana pe data de: " +   carDocsModel.getItp_end_date() + "\n Asigarare valabila pana pe data de: " +
-                        carDocsModel.getInsurance_end_date()+ "\n Rovigneta valabila pana pe:" + carDocsModel.getRoad_tax());
+        tv_car_service_history = findViewById(R.id.tv_car_service_history);
+        tv_car_service_history.setText("Data: " + carServiceHistory.getService_made_date() + "\n Detalii operatiune service: " + carServiceHistory.getDetails());
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_menu_my_car_details);
-        bottomNavigationView.setSelectedItemId(R.id.my_car_docs);
+        bottomNavigationView.setSelectedItemId(R.id.my_car_service_history);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -48,12 +46,12 @@ public class CarDocsActivity extends AppCompatActivity {
                         startActivity(intent);
                         return true;
                     case R.id.my_car_docs:
-                        Toast.makeText(getApplicationContext(), "Sunteti deja pe aceasta sectiune!", Toast.LENGTH_SHORT).show();
+                        Intent intent1 = new Intent(getApplicationContext(), CarDocsActivity.class);
+                        intent1.putExtra("CAR_ID", carId);
+                        startActivity(intent1);
                         return true;
                     case R.id.my_car_service_history:
-                        Intent intentServiceActivity = new Intent(getApplicationContext(), CarServiceHistoryActivity.class);
-                        intentServiceActivity.putExtra("CAR_ID", carId);
-                        startActivity(intentServiceActivity);
+                        Toast.makeText(getApplicationContext(), "Sunteti deja pe aceasta sectiune!", Toast.LENGTH_SHORT).show();
                         return true;
                     default:
                         throw new IllegalStateException("Unexpected value: " + menuItem.getItemId());
@@ -62,7 +60,6 @@ public class CarDocsActivity extends AppCompatActivity {
             }
 
         });
+
     }
-
-
 }
