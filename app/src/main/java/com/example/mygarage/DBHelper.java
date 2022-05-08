@@ -168,6 +168,27 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    public boolean updateCarOdometer(String carId, String carOdometer) {
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_CAR_ODOMETER, carOdometer);
+        db.update(MY_CARS_TABLE, cv, COLUMN_CAR_ID + "=?", new String[] {carId});
+        return true;
+    }
+
+    public boolean updateCarColor(String carId, String carColor) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_CAR_COLOR, carColor);
+        db.update(MY_CARS_TABLE, cv, COLUMN_CAR_ID + "=?", new String[] {carId});
+        return true;
+    }
+
     public boolean deleteCar(String carId) {
 
         String queryString = " DELETE FROM " + MY_CARS_TABLE + " WHERE " + COLUMN_CAR_ID + " LIKE '%" + carId + "%'";

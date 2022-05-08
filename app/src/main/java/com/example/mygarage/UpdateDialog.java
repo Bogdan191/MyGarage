@@ -28,7 +28,7 @@ public class UpdateDialog extends AppCompatDialogFragment {
 
         builder.setView(view)
                 .setTitle("Actualizati datele masinii")
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("inchide", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -37,9 +37,9 @@ public class UpdateDialog extends AppCompatDialogFragment {
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String username = editTextUpdateCarOdometer.getText().toString();
-                        String password = editTextUpdateCarColor.getText().toString();
-                        listener.applyTexts(username, password);
+                        String carOdometer = editTextUpdateCarOdometer.getText().toString();
+                        String carColor = editTextUpdateCarColor.getText().toString();
+                        listener.applyTexts(carOdometer, carColor);
                     }
                 });
 
@@ -57,12 +57,12 @@ public class UpdateDialog extends AppCompatDialogFragment {
             listener = (ExampleDialogListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() +
-                    "must implement ExampleDialogListener");
+                    "must implement Dialog listener");
         }
     }
 
     public interface ExampleDialogListener {
-        void applyTexts(String username, String password);
+        void applyTexts(String carOometer, String carColor);
     }
 
 }

@@ -25,7 +25,7 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Ex
 
     TextView textViewCarName;
     TextView tvCarManufacturedData;
-    TextView tvCarOdometer, tvCarEngine, tvCarHP, tvCarEmission, tvCarRimSize, tvCarGearbox, tvCarMarketValue;
+    TextView tvCarColor, tvCarOdometer, tvCarEngine, tvCarHP, tvCarEmission, tvCarRimSize, tvCarGearbox, tvCarMarketValue;
 
     ImageView ivCarDetails;
     ImageButton buttonDeleteCar;
@@ -46,6 +46,7 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Ex
         ivCarDetails = findViewById(R.id.imageViewCarDetails);
         tvCarManufacturedData = findViewById(R.id.tvCarManufacturedData);
         tvCarOdometer = findViewById(R.id.tvCarOdometer);
+        tvCarColor = findViewById(R.id.tvCarColor);
         tvCarEngine = findViewById(R.id.tvCarEngine);
         tvCarHP = findViewById(R.id.tvCarHP);
         tvCarEmission = findViewById(R.id.tvCarEmission);
@@ -61,11 +62,12 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Ex
         ivCarDetails.setImageBitmap(Utils.getImage(car.getCarImage()));
         tvCarManufacturedData.setText(car.getManufactured_date());
         tvCarOdometer.setText(car.getOdometer()+" km");
-        tvCarEngine.setText(car.getEngine_capacity());
+        tvCarColor.setText(car.getColor());
+        tvCarEngine.setText(car.getEngine_capacity() + "L");
         tvCarHP.setText(car.getHorse_power() + " CP");
         tvCarEmission.setText(car.getEmission_standard());
         tvCarRimSize.setText(car.getRim_size());
-        tvCarGearbox.setText(car.isManual_gearbox()  == true ? "Cutie de viteze manuala" : "Cutie de viteze automata");
+        tvCarGearbox.setText(car.isManual_gearbox()  == true ? "Manuala" : "Automata");
         tvCarMarketValue.setText("Valoarea curenta a masinii: " + car.getCurrent_market_value() + "€");
 
         buttonEditCar.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +160,21 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Ex
     }
 
     @Override
-    public void applyTexts(String username, String password) {
+    public void applyTexts(String carOdometer, String carColor) {
+
+        String carId = getIntent().getStringExtra("CAR_ID");
+        DBHelper dbHelper = new DBHelper(CarRUDActivity.this);
+        if(carColor.length() > 0){
+            dbHelper.updateCarColor(carId, carColor);
+        }
+        if(carOdometer.length() > 0){
+            dbHelper.updateCarOdometer(carId, carOdometer);
+        }
+
+        //refresh the activity
+        finish();
+        startActivity(getIntent());
+
 
     }
 }
