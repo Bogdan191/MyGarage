@@ -57,7 +57,7 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Ex
         buttonDeleteCar = findViewById(R.id.buttonDeleteCarFromDB);
 
         //afiseaza datele masinii in campurile aferente
-        textViewCarName.setText(car.getMake() + " " + car.getModel());
+        textViewCarName.setText(new StringBuilder().append(car.getMake()).append(" ").append(car.getModel()).toString());
         ivCarDetails.setImageBitmap(Utils.getImage(car.getCarImage()));
         tvCarManufacturedData.setText(car.getManufactured_date());
         tvCarOdometer.setText(car.getOdometer()+" km");

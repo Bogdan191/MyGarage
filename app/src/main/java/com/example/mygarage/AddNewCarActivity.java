@@ -35,6 +35,7 @@ public class AddNewCarActivity extends AppCompatActivity {
     //Campurile cu date despre masina
     private EditText et_make;
     private EditText et_model;
+    private EditText et_color;
     private DatePicker manufactured_data;
     private EditText et_emission_standard;
     private EditText et_engine_capacity;
@@ -81,6 +82,7 @@ public class AddNewCarActivity extends AppCompatActivity {
         //adauga referinte catre campurile care contin date despre masina care trebuie adaugata in baza de date
         et_make = findViewById(R.id.editTextAddCarMark);
         et_model = findViewById(R.id.editTextAddCarModel);
+        et_color = findViewById(R.id.editTextAddCarColor);
         manufactured_data = findViewById(R.id.datePickerAddCarManufacturedData);
         et_emission_standard = findViewById(R.id.editTextAddCarEmissionStandard);
         et_engine_capacity = findViewById(R.id.editTextAddCarEngineCapacity);
@@ -105,7 +107,7 @@ public class AddNewCarActivity extends AppCompatActivity {
     //Adauga in baza de date 'cars.db', informatiile depsre masina, documente si detaliile despre istoric service in tabelele aferente
     private void addTheCarInfoToDB(){
 
-        String carMake, carModel , carEmission, carEngine, carRimSize, carCurrentMarketValue;
+        String carMake, carModel, carColor, carEmission, carEngine, carRimSize, carCurrentMarketValue;
         byte[] carImage= new byte[0];
         int carHP, carOdometer;
         boolean carHasManualGearbox;
@@ -116,6 +118,7 @@ public class AddNewCarActivity extends AppCompatActivity {
 
         carMake = et_make.getText().toString();
         carModel = et_model.getText().toString();
+        carColor = et_color.getText().toString();
         carManufacturedData = manufactured_data.getDayOfMonth() + "/" + manufactured_data.getMonth() + "/" + manufactured_data.getYear();
         carEmission = et_emission_standard.getText().toString();
         carEngine = et_engine_capacity.getText().toString();
@@ -197,6 +200,7 @@ public class AddNewCarActivity extends AppCompatActivity {
                         carMake+carModel+carManufacturedData+"CarID",
                         carMake,
                         carModel,
+                        carColor,
                         carManufacturedData,
                         carEmission,
                         carEngine,
@@ -225,6 +229,7 @@ public class AddNewCarActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Eraore la crearea unei noi masini pentru db!", Toast.LENGTH_SHORT).show();
                 newCar = new CarModel(
                         "-1",
+                        "error",
                         "error",
                         "error",
                         "error",

@@ -45,7 +45,7 @@ public class MyCarsAdapter extends RecyclerView.Adapter<MyCarsAdapter.MyViewHold
         CarModel carModel = listCars.get(position);
 
         holder.carImage.setImageBitmap(Utils.getImage(carModel.getCarImage()));
-        holder.carName.setText(carModel.getMake() + " " + carModel.getModel());
+        holder.carName.setText(carModel.getMake() + " " + carModel.getModel() + ", " + carModel.getColor());
         holder.carDescription.setText(carModel.getEngine_capacity() + "L, " + carModel.getHorse_power() + "CP\n" + carModel.getOdometer()+"km");
         holder.carDetails.setOnClickListener(new View.OnClickListener() {
             @Override

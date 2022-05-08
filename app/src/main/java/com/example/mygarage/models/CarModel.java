@@ -5,6 +5,7 @@ public class CarModel {
     private String id;
     private String make;
     private String model;
+    private String color;
     private String manufactured_date;
     private String emission_standard;
     private String engine_capacity;
@@ -17,10 +18,11 @@ public class CarModel {
     private String documents_id;
     private String service_history_id;
 
-    public CarModel(String id, String make, String model, String manufactured_date, String emission_standard, String engine_capacity, int horse_power, String rim_size, String current_market_value, int odometer, boolean manual_gearbox, byte[] carImage, String documents_id, String service_history_id) {
+    public CarModel(String id, String make, String model, String color,  String manufactured_date, String emission_standard, String engine_capacity, int horse_power, String rim_size, String current_market_value, int odometer, boolean manual_gearbox, byte[] carImage, String documents_id, String service_history_id) {
         this.id = id;
         this.make = make;
         this.model = model;
+        this.color = color;
         this.manufactured_date = manufactured_date;
         this.emission_standard = emission_standard;
         this.engine_capacity = engine_capacity;
@@ -80,6 +82,11 @@ public class CarModel {
     public void setModel(String model) {
         this.model = model;
     }
+
+    public String getColor() { return color; }
+
+    public void setColor(String color) { this.color = color; }
+
 
     public String getManufactured_date() {
         return manufactured_date;

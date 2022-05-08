@@ -20,6 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String MY_CARS_TABLE = "MY_CARS_TABLE";
     public static final String COLUMN_CAR_MAKE = "CAR_MARK";
     public static final String COLUMN_CAR_MODEL = "CAR_MODEL";
+    public static final String COLUMN_CAR_COLOR = "CAR_COLOR";
     public static final String COLUMN_CAR_MANUFACTURED_DATA = "CAR_MANUFACTURED_DATA";
     public static final String COLUMN_CAR_EMISSION = "CAR_EMISSION";
     public static final String COLUMN_CAR_ENGINE = "CAR_ENGINE";
@@ -53,7 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String createTableStatement = "CREATE TABLE " + MY_CARS_TABLE + " (" + COLUMN_CAR_ID + " TEXT PRIMARY KEY, " + COLUMN_CAR_MAKE + " TEXT, " +
-                COLUMN_CAR_MODEL + " TEXT, " + COLUMN_CAR_MANUFACTURED_DATA + " TEXT, " + COLUMN_CAR_EMISSION + " TEXT, " + COLUMN_CAR_ENGINE + " TEXT," +
+                COLUMN_CAR_MODEL + " TEXT, "+ COLUMN_CAR_COLOR + " TEXT, " + COLUMN_CAR_MANUFACTURED_DATA + " TEXT, " + COLUMN_CAR_EMISSION + " TEXT, " + COLUMN_CAR_ENGINE + " TEXT," +
                 " " + COLUMN_CAR_HP + " INTEGER, " + COLUMN_CAR_RIM_SIZE + " TEXT, " +
                 COLUMN_CAR_CURRENT_VALUE + ", " + COLUMN_CAR_ODOMETER + " INTEGER, " + COLUMN_CAR_MANUAL_GEARBOX + " BOOL, " + COLUMN_CAR_IMAGE + " BLOB NOT NULL, " +
                 COLUMN_DOCUMENTS_ID + " TEXT, " + COLUMN_SERVICE_HISTORY_ID + " TEXT, CONSTRAINT FK_DOCUMENTS FOREIGN KEY("+COLUMN_DOCUMENTS_ID + ")" +
@@ -93,6 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_CAR_ID, carModel.getId());
         cv.put(COLUMN_CAR_MAKE, carModel.getMake());
         cv.put(COLUMN_CAR_MODEL, carModel.getModel());
+        cv.put(COLUMN_CAR_COLOR, carModel.getColor());
         cv.put(COLUMN_CAR_MANUFACTURED_DATA, carModel.getManufactured_date());
         cv.put(COLUMN_CAR_EMISSION, carModel.getEmission_standard());
         cv.put(COLUMN_CAR_ENGINE, carModel.getEngine_capacity());
@@ -123,19 +125,20 @@ public class DBHelper extends SQLiteOpenHelper {
                 String carID = cursor.getString(0);
                 String carMake = cursor.getString(1);
                 String carModel = cursor.getString(2);
-                String carManufacturedData = cursor.getString(3);
-                String carEmission = cursor.getString(4);
-                String carEngine = cursor.getString(5);
-                int carHP = cursor.getInt(6);
-                String carRimSize = cursor.getString(7);
-                String carCurrentValue = cursor.getString(8);
-                int carOdometer = cursor.getInt(9);
-                boolean carHasManualGearbox = cursor.getInt(10) == 1 ? true : false;
-                byte[] carImage = cursor.getBlob(11);
-                String documentsId = cursor.getString(12);
-                String serviceHistoryId = cursor.getString(13);
+                String carColor = cursor.getString(3);
+                String carManufacturedData = cursor.getString(4);
+                String carEmission = cursor.getString(5);
+                String carEngine = cursor.getString(6);
+                int carHP = cursor.getInt(7);
+                String carRimSize = cursor.getString(8);
+                String carCurrentValue = cursor.getString(9);
+                int carOdometer = cursor.getInt(10);
+                boolean carHasManualGearbox = cursor.getInt(11) == 1 ? true : false;
+                byte[] carImage = cursor.getBlob(12);
+                String documentsId = cursor.getString(13);
+                String serviceHistoryId = cursor.getString(14);
 
-                CarModel carModel1 = new CarModel(carID, carMake, carModel, carManufacturedData, carEmission, carEngine, carHP, carRimSize,
+                CarModel carModel1 = new CarModel(carID, carMake, carModel, carColor, carManufacturedData, carEmission, carEngine, carHP, carRimSize,
                         carCurrentValue, carOdometer, carHasManualGearbox, carImage, documentsId, serviceHistoryId);
 
                 returnCarsList.add(carModel1);
