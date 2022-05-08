@@ -6,6 +6,7 @@
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable/border_news_item.xml" value="0.3828125" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable/ic_car_documents.xml" value="0.22395833333333334" />
+        <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable/ic_delete.xml" value="0.22864583333333333" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable/ic_home_news.xml" value="0.221875" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable/ic_my_cars.xml" value="0.221875" />
@@ -23,6 +24,7 @@
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/layout/add_new_car_form.xml" value="0.36666666666666664" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/layout/car_item.xml" value="0.20572916666666666" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/layout/carousel.xml" value="0.36666666666666664" />
+        <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/layout/dialog_layout_update_car.xml" value="0.10677083333333333" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/layout/fragment_mycars.xml" value="0.20572916666666666" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/layout/news_item.xml" value="0.36666666666666664" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/layout/recycler_view_item.xml" value="0.20572916666666666" />

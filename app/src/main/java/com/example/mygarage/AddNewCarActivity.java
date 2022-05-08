@@ -282,6 +282,7 @@ public class AddNewCarActivity extends AppCompatActivity {
             if(requestCode == SELECT_PICTURE) {
                 Uri selectImageUri = data.getData();
                 if(selectImageUri != null) {
+                    iv_carImage.setBackground(null);
                     iv_carImage.setImageURI(selectImageUri);
                 }
             }

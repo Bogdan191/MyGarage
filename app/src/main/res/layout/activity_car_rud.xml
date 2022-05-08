@@ -6,169 +6,172 @@
     android:layout_height="match_parent"
     tools:context=".CarRUDActivity">
 
-    <Button
-        android:id="@+id/buttonDeleteCarFromDB"
-        android:layout_width="115dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="291dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="5dp"
-        android:text="Sterge masina" />
-
-    <Button
-        android:id="@+id/buttonUpdateCarFromDB"
-        android:layout_width="94dp"
-        android:layout_height="65dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="-1dp"
-        android:layout_marginTop="7dp"
-        android:text="Editeaza masina" />
-    <ImageView
-        android:id="@+id/imageViewCarDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="162dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="128dp"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
 
 
-    <TextView
-        android:id="@+id/tvCarName"
-        android:layout_width="wrap_content"
-        android:layout_height="79dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="183dp"
-        android:layout_marginEnd="35dp"
-        android:gravity="center"
-        android:text="Nume masina"
-        android:textSize="20sp" />
+        <ImageButton
+            android:id="@+id/buttonDeleteCarFromDB"
+            android:layout_width="69dp"
+            android:layout_height="54dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="308dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="33dp"
+            android:background="@drawable/ic_delete" />
 
-    <LinearLayout
+        <ImageButton
+            android:id="@+id/buttonEditCarFromDB"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/ic_edit" />
+
+        <ImageView
+            android:id="@+id/imageViewCarDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="162dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="128dp"
+            app:srcCompat="@drawable/ic_launcher_foreground" />
+
+
+        <TextView
+            android:id="@+id/tvCarName"
+            android:layout_width="wrap_content"
+            android:layout_height="79dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="183dp"
+            android:layout_marginEnd="35dp"
+            android:gravity="center"
+            android:text="Nume masina"
+            android:textSize="20sp" />
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCarName"
-        android:layout_marginTop="29dp">
-
-        <TextView
-            android:id="@+id/tvCarManufacturedData"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/rounded_textview_bg"
-            android:gravity="center"
-            android:text="Data fabricarii"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-        <TextView
-            android:id="@+id/tvCarOdometer"
-            android:layout_width="170dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="168dp"
-            android:background="@drawable/rounded_textview_bg"
-            android:gravity="center"
-            android:text="Rulaj km"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCarName"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="109dp">
-
-        <TextView
-            android:id="@+id/tvCarEngine"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rounded_textview_bg"
-            android:gravity="center"
-            android:text="Engine"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/tvCarHP"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="18dp"
-            android:background="@drawable/rounded_textview_bg"
-            android:gravity="center"
-            android:text="CP"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/tvCarEmission"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="1dp"
-            android:background="@drawable/rounded_textview_bg"
-            android:gravity="center"
-            android:text="Norma Poluare"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCarName"
-        android:layout_marginTop="189dp">
-
-        <TextView
-            android:id="@+id/tvCarRimSize"
-            android:layout_width="190dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/rounded_textview_bg"
-            android:gravity="center"
-            android:text="Marime roti"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/tvCarGearbox"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="168dp"
-            android:background="@drawable/rounded_textview_bg"
-            android:gravity="center"
-            android:text="Cutie de viteze "
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCarName"
-        android:layout_marginTop="269dp">
-
-        <TextView
-            android:id="@+id/tvCarMarketValue"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvCarName"
+        android:layout_marginBottom="105dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="39dp">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/rounded_textview_bg"
-            android:gravity="center"
-            android:text="Valoarea curenta a masinii"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCarName"
+            android:layout_marginTop="29dp"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tvCarManufacturedData"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_textview_bg"
+                android:gravity="center"
+                android:text="Data fabricarii"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvCarOdometer"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="168dp"
+                android:background="@drawable/rounded_textview_bg"
+                android:gravity="center"
+                android:text="Rulaj km"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvCarEngine"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_textview_bg"
+                android:gravity="center"
+                android:text="Engine"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvCarHP"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/rounded_textview_bg"
+                android:gravity="center"
+                android:text="CP"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvCarEmission"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/rounded_textview_bg"
+                android:gravity="center"
+                android:text="Norma Poluare"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvCarRimSize"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_textview_bg"
+                android:gravity="center"
+                android:text="Marime roti"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvCarGearbox"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="168dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/rounded_textview_bg"
+                android:gravity="center"
+                android:text="Cutie de viteze "
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvCarMarketValue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_textview_bg"
+                android:gravity="center"
+                android:text="Valoarea curenta a masinii"
+                android:textColor="@color/black"
+                android:layout_marginBottom="30dp"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_menu_my_car_details"
         android:layout_width="match_parent"

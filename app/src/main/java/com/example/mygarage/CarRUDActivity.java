@@ -1,10 +1,13 @@
 package com.example.mygarage;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,14 +19,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mygarage.models.CarModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class CarRUDActivity extends AppCompatActivity {
+import java.util.List;
+
+public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.ExampleDialogListener {
 
     TextView textViewCarName;
     TextView tvCarManufacturedData;
     TextView tvCarOdometer, tvCarEngine, tvCarHP, tvCarEmission, tvCarRimSize, tvCarGearbox, tvCarMarketValue;
 
     ImageView ivCarDetails;
-    Button buttonDeleteCar;
+    ImageButton buttonDeleteCar;
+    ImageButton buttonEditCar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +53,7 @@ public class CarRUDActivity extends AppCompatActivity {
         tvCarGearbox = findViewById(R.id.tvCarGearbox);
         tvCarMarketValue = findViewById(R.id.tvCarMarketValue);
 
+        buttonEditCar = findViewById(R.id.buttonEditCarFromDB);
         buttonDeleteCar = findViewById(R.id.buttonDeleteCarFromDB);
 
         //afiseaza datele masinii in campurile aferente
@@ -61,12 +68,13 @@ public class CarRUDActivity extends AppCompatActivity {
         tvCarGearbox.setText(car.isManual_gearbox()  == true ? "Cutie de viteze manuala" : "Cutie de viteze automata");
         tvCarMarketValue.setText("Valoarea curenta a masinii: " + car.getCurrent_market_value() + "€");
 
-        buttonDeleteCar.setOnClickListener(new View.OnClickListener() {
+        buttonEditCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteCarFromDB(car.getId());
+                seeDialogForEditCar(car.getId());
             }
         });
+        buttonDeleteCar.setOnClickListener(v -> deleteCarFromDB(car.getId()));
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_menu_my_car_details);
         bottomNavigationView.setSelectedItemId(R.id.my_car_details);
@@ -104,15 +112,53 @@ public class CarRUDActivity extends AppCompatActivity {
         super.onStart();
 
     }
-
+    //TODO: implementeaza functia de deschis dialogul pentru editarea masinii si salvarea in baza de date dupa ce a fost creat dialogul
+    private void seeDialogForEditCar(String carId){
+            openCarEditDialog(carId);
+    }
     private void deleteCarFromDB(String carId) {
 
         DBHelper dbHelper = new DBHelper(CarRUDActivity.this);
-        boolean successOnDeleteCar = dbHelper.deleteCar(carId);
-        if(successOnDeleteCar) {
-            startActivity(new Intent(getApplicationContext(), MyCarsActivity.class));
-        }else {
-            Toast.makeText(getApplicationContext(), "Eoare! Masina nu a putut fi stearsa! Te rugam incarca din nou.", Toast.LENGTH_SHORT).show();
-        }
+        CarModel carModel = dbHelper.getCarById(carId);
+        AlertDialog alertDeleteCarDialog = new AlertDialog.Builder(CarRUDActivity.this).create();
+
+        alertDeleteCarDialog.setTitle("Atentie!");
+        alertDeleteCarDialog.setMessage("Sunteti sigur ca vreti sa stergeti aceasta masina, " + carModel.getMake() + " "
+              + carModel.getModel()  + ", din lista?");
+        alertDeleteCarDialog.setButton(AlertDialog.BUTTON_POSITIVE, "NU",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDeleteCarDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DA",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DBHelper dbHelper1 = new DBHelper(CarRUDActivity.this);
+                        dbHelper1 = new DBHelper(CarRUDActivity.this);
+                        boolean successOnDeleteCar = dbHelper1.deleteCar(carId);
+                        if(successOnDeleteCar) {
+                            startActivity(new Intent(getApplicationContext(), MyCarsActivity.class));
+                        }else {
+                            Toast.makeText(getApplicationContext(), "Eoare! Masina nu a putut fi stearsa! Te rugam incarca din nou.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        alertDeleteCarDialog.show();
+    }
+
+    public void openCarEditDialog(String carId) {
+
+        UpdateDialog dialog = new UpdateDialog();
+        dialog.show(getSupportFragmentManager(), "dialog");
+
+
+    }
+
+    @Override
+    public void applyTexts(String username, String password) {
+
     }
 }

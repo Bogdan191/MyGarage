@@ -173,10 +173,12 @@ public class DBHelper extends SQLiteOpenHelper {
         if(getCarById(carId) == null){
 
             queryString = " DELETE FROM " + DOCUMENTS_TABLE + " WHERE " + COLUMN_CAR_ID + " LIKE '%" + carId + "%'";
+            db = this.getReadableDatabase();
             db.execSQL(queryString);
 
             String serviceID = carId.concat("serviceHistory");
             queryString = " DELETE FROM " + SERVICE_HISTORY_TABLE + " WHERE " + COLUMN_SERVICE_HISTORY_ID + " LIKE '%" + serviceID + "%'";
+            db = this.getReadableDatabase();
             db.execSQL(queryString);
 
             db.close();
