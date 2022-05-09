@@ -1,5 +1,6 @@
 package com.example.mygarage;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -17,36 +19,39 @@ import java.util.List;
 public class UpdateDialog extends AppCompatDialogFragment {
     private EditText editTextUpdateCarOdometer;
     private EditText editTextUpdateCarColor;
-    private ExampleDialogListener listener;
+    private UpdateCarListener listener;
+
+
+
+
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_layout_update_car, null);
+        String typeOfUpdate = this.getArguments().getString("type_of_update");
 
-        builder.setView(view)
-                .setTitle("Actualizati datele masinii")
-                .setNegativeButton("inchide", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+        switch(typeOfUpdate) {
+            case "EDIT_CAR":
+                builder = setTheDialogForCarEdit();
+                return builder.create();
+            case "UPDATE_ITP":
+                builder = setTheDialogForITPUpdate();
+                return builder.create();
+            case "UPDATE_INSURANCE":
+                builder = setTheDialogForInsuranceUpdate();
+                return builder.create();
 
-                    }
-                })
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String carOdometer = editTextUpdateCarOdometer.getText().toString();
-                        String carColor = editTextUpdateCarColor.getText().toString();
-                        listener.applyTexts(carOdometer, carColor);
-                    }
-                });
+            case "UPDATE_ROAD_TAX":
+                builder = setTheDialogForRoadTaxUpdate();
+                return builder.create();
 
-        editTextUpdateCarOdometer = view.findViewById(R.id.update_car_odometer);
-        editTextUpdateCarColor = view.findViewById(R.id.update_car_color);
+        }
 
         return builder.create();
+
+
     }
 
     @Override
@@ -54,15 +59,146 @@ public class UpdateDialog extends AppCompatDialogFragment {
         super.onAttach(context);
 
         try {
-            listener = (ExampleDialogListener) context;
+            listener = (UpdateCarListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() +
                     "must implement Dialog listener");
         }
     }
 
-    public interface ExampleDialogListener {
-        void applyTexts(String carOometer, String carColor);
+    public interface UpdateCarListener {
+        void saveNewDataForCar(String carOometer, String carColor);
+
+        void saveDocsNewEndDate(String newDate, String typeUpdate);
+    }
+
+
+
+
+
+    private AlertDialog.Builder setTheDialogForCarEdit() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        String title = "Actualizeaza datele masinii dumneavoastra";
+        String negativeButton = "Inchide";
+        String positiveButton = "Salveaza";
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_layout_update_car, null);
+        builder.setView(view)
+                .setTitle(title)
+                .setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String carOdometer = editTextUpdateCarOdometer.getText().toString();
+                        String carColor = editTextUpdateCarColor.getText().toString();
+                        listener.saveNewDataForCar(carOdometer, carColor);
+                    }
+                });
+
+        editTextUpdateCarOdometer = view.findViewById(R.id.update_car_odometer);
+        editTextUpdateCarColor = view.findViewById(R.id.update_car_color);
+
+        return builder;
+    }
+
+    private AlertDialog.Builder setTheDialogForITPUpdate() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        String title =  "Seteaza noua data la care expira ITP-ul masinii dumneavoastra";
+        String negativeButton = "Inchide";
+        String positiveButton = "Salveaza";
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_layout_update_car_itp, null);
+
+        DatePicker dp_newDate = view.findViewById(R.id.datePickerUpdateCarITPEndDate);
+
+
+        builder.setView(view)
+                .setTitle(title)
+                .setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String newITPEndDate =  dp_newDate.getDayOfMonth() + "/" + dp_newDate.getMonth() + "/" + dp_newDate.getYear();
+                        listener.saveDocsNewEndDate(newITPEndDate, "UPDATE_ITP");
+                    }
+                });
+
+        return builder;
+    }
+
+    private AlertDialog.Builder setTheDialogForInsuranceUpdate() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        String title =  "Seteaza noua data la care expira Asigurarea masinii dumneavoastra";
+        String negativeButton = "Inchide";
+        String positiveButton = "Salveaza";
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_layout_update_car_insurance, null);
+
+        DatePicker dp_newDate = view.findViewById(R.id.datePickerUpdateCarInsuranceEndDate);
+
+
+        builder.setView(view)
+                .setTitle(title)
+                .setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String newITPEndDate =  dp_newDate.getDayOfMonth() + "/" + dp_newDate.getMonth() + "/" + dp_newDate.getYear();
+                        listener.saveDocsNewEndDate(newITPEndDate, "UPDATE_INSURANCE");
+                    }
+                });
+
+        return builder;
+    }
+    private AlertDialog.Builder setTheDialogForRoadTaxUpdate() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        String title =  "Seteaza noua data la care expira Rovinieta masinii dumneavoastra";
+        String negativeButton = "Inchide";
+        String positiveButton = "Salveaza";
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_update_car_road_tax, null);
+
+        DatePicker dp_newDate = view.findViewById(R.id.datePickerUpdateCarRoadTaxEndDate);
+
+
+        builder.setView(view)
+                .setTitle(title)
+                .setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String newITPEndDate =  dp_newDate.getDayOfMonth() + "/" + dp_newDate.getMonth() + "/" + dp_newDate.getYear();
+                        listener.saveDocsNewEndDate(newITPEndDate, "UPDATE_ROAD_TAX");
+                    }
+                });
+
+        return builder;
     }
 
 }

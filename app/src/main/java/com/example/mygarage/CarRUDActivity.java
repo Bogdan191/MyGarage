@@ -21,7 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
-public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.ExampleDialogListener {
+public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.UpdateCarListener {
 
     TextView textViewCarName;
     TextView tvCarManufacturedData;
@@ -154,13 +154,16 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Ex
     public void openCarEditDialog(String carId) {
 
         UpdateDialog dialog = new UpdateDialog();
+        Bundle updateDialogBundle = new Bundle();
+        updateDialogBundle.putString("type_of_update", "EDIT_CAR");
+        dialog.setArguments(updateDialogBundle);
         dialog.show(getSupportFragmentManager(), "dialog");
 
 
     }
 
     @Override
-    public void applyTexts(String carOdometer, String carColor) {
+    public void saveNewDataForCar(String carOdometer, String carColor) {
 
         String carId = getIntent().getStringExtra("CAR_ID");
         DBHelper dbHelper = new DBHelper(CarRUDActivity.this);
@@ -175,6 +178,10 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Ex
         finish();
         startActivity(getIntent());
 
+
+    }
+    @Override
+    public void saveDocsNewEndDate(String newDate, String typeUdpate) {
 
     }
 }
