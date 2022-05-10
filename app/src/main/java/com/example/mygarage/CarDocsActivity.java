@@ -59,7 +59,7 @@ public class CarDocsActivity extends AppCompatActivity implements UpdateDialog.U
             @Override
             public void onClick(View v) {
 
-                    openCarEditDialog("UPDATE_ITP");
+                    openCarUpdateDocsDialog("UPDATE_ITP");
 
             }
         });
@@ -67,13 +67,13 @@ public class CarDocsActivity extends AppCompatActivity implements UpdateDialog.U
         buttonChangeInsuranceEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openCarEditDialog("UPDATE_INSURANCE");
+                openCarUpdateDocsDialog("UPDATE_INSURANCE");
             }
         });
         buttonChangeRoadTaxEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openCarEditDialog("UPDATE_ROAD_TAX");
+                openCarUpdateDocsDialog("UPDATE_ROAD_TAX");
             }
         });
 
@@ -109,7 +109,7 @@ public class CarDocsActivity extends AppCompatActivity implements UpdateDialog.U
         });
     }
 
-    public void openCarEditDialog(String updateType) {
+    public void openCarUpdateDocsDialog(String updateType) {
 
         UpdateDialog dialog = new UpdateDialog();
         Bundle updateDialogBundle = new Bundle();
@@ -130,16 +130,15 @@ public class CarDocsActivity extends AppCompatActivity implements UpdateDialog.U
 
         DBHelper db = new DBHelper(CarDocsActivity.this);
 
+        String carId = getIntent().getStringExtra("CAR_ID");
 
-        if(updateType.equals("UPDATE_ITP")) {
-            Toast.makeText(getApplicationContext(), "Noua data itp:" + newDate, Toast.LENGTH_SHORT).show();
-        } else if(updateType.equals("UPDATE_INSURANCE")) {
-            Toast.makeText(getApplicationContext(), "Noua data asigurare:" + newDate, Toast.LENGTH_SHORT).show();
+        db.updateCarDocs(updateType, carId, newDate);
 
-        } else if(updateType.equals("UPDATE_ROAD_TAX")){
-            Toast.makeText(getApplicationContext(), "Noua data rovinieta:" + newDate, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Noua data  " + updateType + ": " + newDate, Toast.LENGTH_SHORT).show();
 
-        }
+        //refresh
+        finish();
+        startActivity(getIntent());
 
     }
 

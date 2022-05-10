@@ -260,6 +260,35 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    public boolean updateCarDocs(String typeOfDocs, String carId, String newDate){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        switch (typeOfDocs){
+            case "UPDATE_ITP":
+
+                cv.put(COLUMN_ITP_END_DATE, newDate);
+                db.update(DOCUMENTS_TABLE, cv, COLUMN_CAR_ID + "=?", new String[] {carId});
+                return true;
+
+            case "UPDATE_INSURANCE":
+
+                cv.put(COLUMN_INSURANCE_END_DATE, newDate);
+                db.update(DOCUMENTS_TABLE, cv, COLUMN_CAR_ID + "=?", new String[] {carId});
+                return true;
+
+            case "UPDATE_ROAD_TAX":
+
+                cv.put(COLUMN_ROAD_TAX, newDate);
+                db.update(DOCUMENTS_TABLE, cv, COLUMN_CAR_ID + "=?", new String[] {carId});
+                return true;
+
+        }
+        return false;
+
+    }
+
     public boolean addServiceHistoryToDB(ServiceHistoryModel serviceHistoryModel) {
 
         SQLiteDatabase db = this.getWritableDatabase();

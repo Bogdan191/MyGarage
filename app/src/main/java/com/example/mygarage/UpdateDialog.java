@@ -132,7 +132,7 @@ public class UpdateDialog extends AppCompatDialogFragment {
                 .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String newITPEndDate =  dp_newDate.getDayOfMonth() + "/" + dp_newDate.getMonth() + "/" + dp_newDate.getYear();
+                        String newITPEndDate =  dp_newDate.getDayOfMonth() + "/" + (dp_newDate.getMonth() + 1) + "/" + dp_newDate.getYear();
                         listener.saveDocsNewEndDate(newITPEndDate, "UPDATE_ITP");
                     }
                 });
@@ -163,7 +163,7 @@ public class UpdateDialog extends AppCompatDialogFragment {
                 .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String newITPEndDate =  dp_newDate.getDayOfMonth() + "/" + dp_newDate.getMonth() + "/" + dp_newDate.getYear();
+                        String newITPEndDate =  dp_newDate.getDayOfMonth() + "/" + (dp_newDate.getMonth() + 1) + "/" + dp_newDate.getYear();
                         listener.saveDocsNewEndDate(newITPEndDate, "UPDATE_INSURANCE");
                     }
                 });
@@ -193,7 +193,7 @@ public class UpdateDialog extends AppCompatDialogFragment {
                 .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String newITPEndDate =  dp_newDate.getDayOfMonth() + "/" + dp_newDate.getMonth() + "/" + dp_newDate.getYear();
+                        String newITPEndDate =  dp_newDate.getDayOfMonth() + "/" + (dp_newDate.getMonth() + 1) + "/" + dp_newDate.getYear();
                         listener.saveDocsNewEndDate(newITPEndDate, "UPDATE_ROAD_TAX");
                     }
                 });

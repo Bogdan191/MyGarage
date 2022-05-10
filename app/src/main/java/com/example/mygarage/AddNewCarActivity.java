@@ -157,13 +157,13 @@ public class AddNewCarActivity extends AppCompatActivity {
         //obitne datele despre documente din UI pentru a putea fi salvate
         String docITP, docInsurance, docRoadTax;
         docITP = itp_end_date.getDayOfMonth() + "/" + itp_end_date.getMonth() + "/" + itp_end_date.getYear();
-        docInsurance = insurance_end_date.getDayOfMonth() + "/" + insurance_end_date.getMonth() + "/" + insurance_end_date.getYear();
-        docRoadTax = road_tax.getDayOfMonth() + "/" + road_tax.getMonth() + "/" + road_tax.getYear();
+        docInsurance = insurance_end_date.getDayOfMonth() + "/" + (insurance_end_date.getMonth() + 1) + "/" + insurance_end_date.getYear();
+        docRoadTax = road_tax.getDayOfMonth() + "/" + (road_tax.getMonth() + 1) + "/" + road_tax.getYear();
 
         //obtine datele despre istoricul service
         String serviceDate;
         String serviceDetails;
-        serviceDate = service_date.getDayOfMonth() + "/" + service_date.getMonth() + "/" + service_date.getYear();
+        serviceDate = service_date.getDayOfMonth() + "/" + (service_date.getMonth() + 1) + "/" + service_date.getYear();
         serviceDetails = et_service_details.getText().toString();
 
         if(carMake.isEmpty()) {
@@ -210,8 +210,8 @@ public class AddNewCarActivity extends AppCompatActivity {
                         carOdometer,
                         carHasManualGearbox,
                         carImage,
-                        "-1",
-                        "-1"
+                        carMake + carModel + carManufacturedData + "DocID",
+                        carMake+carModel+carManufacturedData+"CarIDserviceHistory"
                 );
                 documents = new DocumentsModel(
                         carMake + carModel + carManufacturedData + "DocID",
