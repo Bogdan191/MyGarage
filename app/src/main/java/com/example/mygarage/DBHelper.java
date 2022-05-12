@@ -24,6 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CAR_MANUFACTURED_DATA = "CAR_MANUFACTURED_DATA";
     public static final String COLUMN_CAR_EMISSION = "CAR_EMISSION";
     public static final String COLUMN_CAR_ENGINE = "CAR_ENGINE";
+    public static final String COLUMN_CAR_FUEL = "CAR_FUEL";
     public static final String COLUMN_CAR_HP = "CAR_HP";
     public static final String COLUMN_CAR_RIM_SIZE = "CAR_RIM_SIZE";
     public static final String COLUMN_CAR_CURRENT_VALUE = "CAR_CURRENT_VALUE";
@@ -54,8 +55,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String createTableStatement = "CREATE TABLE " + MY_CARS_TABLE + " (" + COLUMN_CAR_ID + " TEXT PRIMARY KEY, " + COLUMN_CAR_MAKE + " TEXT, " +
-                COLUMN_CAR_MODEL + " TEXT, "+ COLUMN_CAR_COLOR + " TEXT, " + COLUMN_CAR_MANUFACTURED_DATA + " TEXT, " + COLUMN_CAR_EMISSION + " TEXT, " + COLUMN_CAR_ENGINE + " TEXT," +
-                " " + COLUMN_CAR_HP + " INTEGER, " + COLUMN_CAR_RIM_SIZE + " TEXT, " +
+                COLUMN_CAR_MODEL + " TEXT, "+ COLUMN_CAR_COLOR + " TEXT, " + COLUMN_CAR_MANUFACTURED_DATA + " TEXT, " + COLUMN_CAR_EMISSION + " TEXT, " +
+                COLUMN_CAR_ENGINE + " TEXT,"+ COLUMN_CAR_FUEL + " TEXT, " + COLUMN_CAR_HP + " INTEGER, " + COLUMN_CAR_RIM_SIZE + " TEXT, " +
                 COLUMN_CAR_CURRENT_VALUE + ", " + COLUMN_CAR_ODOMETER + " INTEGER, " + COLUMN_CAR_MANUAL_GEARBOX + " BOOL, " + COLUMN_CAR_IMAGE + " BLOB NOT NULL, " +
                 COLUMN_DOCUMENTS_ID + " TEXT, " + COLUMN_SERVICE_HISTORY_ID + " TEXT, CONSTRAINT FK_DOCUMENTS FOREIGN KEY("+COLUMN_DOCUMENTS_ID + ")" +
                 " REFERENCES " + DOCUMENTS_TABLE + "(" + COLUMN_CAR_ID + ")," +
@@ -70,7 +71,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(createTableStatement);
 
 
-        createTableStatement = "CREATE TABLE " + SERVICE_HISTORY_TABLE + "(" + COLUMN_SERVICE_HISTORY_ID + " TEXT PRIMARY KEY, " + COLUMN_SERVICE_MADE_DATE + " TEXT, " + COLUMNS_DETAILS + " TEXT)";
+        createTableStatement = "CREATE TABLE " + SERVICE_HISTORY_TABLE + "(" + COLUMN_SERVICE_HISTORY_ID + " TEXT PRIMARY KEY, " + COLUMN_SERVICE_MADE_DATE + " TEXT, " + COLUMNS_DETAILS + " TEXT, "
+                                + COLUMN_CAR_ID + " TEXT, CONSTRAINT FK_CAR_ID FOREIGN KEY(" + COLUMN_CAR_ID + ")REFERENCES " + MY_CARS_TABLE + "(" + COLUMN_CAR_ID + "))";
 
         db.execSQL(createTableStatement);
 
@@ -98,6 +100,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_CAR_MANUFACTURED_DATA, carModel.getManufactured_date());
         cv.put(COLUMN_CAR_EMISSION, carModel.getEmission_standard());
         cv.put(COLUMN_CAR_ENGINE, carModel.getEngine_capacity());
+        cv.put(COLUMN_CAR_FUEL, carModel.getFuel_type());
         cv.put(COLUMN_CAR_HP, carModel.getHorse_power());
         cv.put(COLUMN_CAR_RIM_SIZE, carModel.getRim_size());
         cv.put(COLUMN_CAR_CURRENT_VALUE, carModel.getCurrent_market_value());
@@ -129,16 +132,17 @@ public class DBHelper extends SQLiteOpenHelper {
                 String carManufacturedData = cursor.getString(4);
                 String carEmission = cursor.getString(5);
                 String carEngine = cursor.getString(6);
-                int carHP = cursor.getInt(7);
-                String carRimSize = cursor.getString(8);
-                String carCurrentValue = cursor.getString(9);
-                int carOdometer = cursor.getInt(10);
-                boolean carHasManualGearbox = cursor.getInt(11) == 1 ? true : false;
-                byte[] carImage = cursor.getBlob(12);
-                String documentsId = cursor.getString(13);
-                String serviceHistoryId = cursor.getString(14);
+                String carFuel = cursor.getString(7);
+                int carHP = cursor.getInt(8);
+                String carRimSize = cursor.getString(9);
+                String carCurrentValue = cursor.getString(10);
+                int carOdometer = cursor.getInt(11);
+                boolean carHasManualGearbox = cursor.getInt(12) == 1 ? true : false;
+                byte[] carImage = cursor.getBlob(13);
+                String documentsId = cursor.getString(14);
+                String serviceHistoryId = cursor.getString(15);
 
-                CarModel carModel1 = new CarModel(carID, carMake, carModel, carColor, carManufacturedData, carEmission, carEngine, carHP, carRimSize,
+                CarModel carModel1 = new CarModel(carID, carMake, carModel, carColor, carManufacturedData, carEmission, carEngine, carFuel, carHP, carRimSize,
                         carCurrentValue, carOdometer, carHasManualGearbox, carImage, documentsId, serviceHistoryId);
 
                 returnCarsList.add(carModel1);
@@ -298,6 +302,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_SERVICE_HISTORY_ID, serviceHistoryModel.getId());
         cv.put(COLUMN_SERVICE_MADE_DATE, serviceHistoryModel.getService_made_date());
         cv.put(COLUMNS_DETAILS, serviceHistoryModel.getDetails());
+        cv.put(COLUMN_CAR_ID, serviceHistoryModel.getCarID());
 
         long insert = db.insert(SERVICE_HISTORY_TABLE, null, cv);
         return insert != -1;
@@ -320,7 +325,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     String serviceMadeDate = cursor.getString(1);
                     String serviceDetails = cursor.getString(2);
 
-                    ServiceHistoryModel serviceHistoryModel = new ServiceHistoryModel(serviceID, serviceMadeDate, serviceDetails);
+                    ServiceHistoryModel serviceHistoryModel = new ServiceHistoryModel(serviceID, serviceMadeDate, serviceDetails, carId);
                     return serviceHistoryModel;
                 }
 

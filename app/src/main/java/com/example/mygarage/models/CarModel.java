@@ -9,6 +9,7 @@ public class CarModel {
     private String manufactured_date;
     private String emission_standard;
     private String engine_capacity;
+    private String fuel_type;
     private int horse_power;
     private String rim_size;
     private String current_market_value;
@@ -18,7 +19,7 @@ public class CarModel {
     private String documents_id;
     private String service_history_id;
 
-    public CarModel(String id, String make, String model, String color,  String manufactured_date, String emission_standard, String engine_capacity, int horse_power, String rim_size, String current_market_value, int odometer, boolean manual_gearbox, byte[] carImage, String documents_id, String service_history_id) {
+    public CarModel(String id, String make, String model, String color,  String manufactured_date, String emission_standard, String engine_capacity, String fuel_type, int horse_power, String rim_size, String current_market_value, int odometer, boolean manual_gearbox, byte[] carImage, String documents_id, String service_history_id) {
         this.id = id;
         this.make = make;
         this.model = model;
@@ -26,6 +27,7 @@ public class CarModel {
         this.manufactured_date = manufactured_date;
         this.emission_standard = emission_standard;
         this.engine_capacity = engine_capacity;
+        this.fuel_type = fuel_type;
         this.horse_power = horse_power;
         this.rim_size = rim_size;
         this.current_market_value = current_market_value;
@@ -111,6 +113,11 @@ public class CarModel {
     public void setEngine_capacity(String engine_capacity) {
         this.engine_capacity = engine_capacity;
     }
+
+
+    public String getFuel_type() { return fuel_type;}
+
+    public void setFuel_type(String fuel_type) { this.fuel_type = fuel_type; }
 
     public int getHorse_power() {
         return horse_power;

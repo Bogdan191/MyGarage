@@ -5,11 +5,13 @@ public class ServiceHistoryModel {
     private String id;
     private String service_made_date;
     private String details;
+    private String carID;
 
-    public ServiceHistoryModel(String id, String service_made_date, String details) {
+    public ServiceHistoryModel(String id, String service_made_date, String details, String carID) {
         this.id = id;
         this.service_made_date = service_made_date;
         this.details = details;
+        this.carID = carID;
     }
 
     public ServiceHistoryModel() {
@@ -39,4 +41,8 @@ public class ServiceHistoryModel {
     public void setDetails(String details) {
         this.details = details;
     }
+
+    public String getCarID() { return carID; }
+
+    public void setCarID(String carID) { this.carID = carID; }
 }

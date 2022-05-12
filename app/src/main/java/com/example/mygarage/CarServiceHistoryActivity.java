@@ -29,7 +29,7 @@ public class CarServiceHistoryActivity extends AppCompatActivity {
         ServiceHistoryModel carServiceHistory = dbHelper.getServiceHistoryOfCar(carId);
 
         tv_car_service_history = findViewById(R.id.tv_car_service_history);
-        tv_car_service_history.setText("Data: " + carServiceHistory.getService_made_date() + "\n Detalii operatiune service: " + carServiceHistory.getDetails());
+        tv_car_service_history.setText("Data: " + carServiceHistory.getService_made_date() + "\n\n " + carServiceHistory.getDetails());
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_menu_my_car_details);

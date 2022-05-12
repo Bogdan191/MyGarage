@@ -39,6 +39,7 @@ public class AddNewCarActivity extends AppCompatActivity {
     private DatePicker manufactured_data;
     private EditText et_emission_standard;
     private EditText et_engine_capacity;
+    private  EditText et_fuel_type;
     private EditText et_horse_power;
     private EditText et_rim_size;
     private EditText et_current_market_value;
@@ -86,6 +87,7 @@ public class AddNewCarActivity extends AppCompatActivity {
         manufactured_data = findViewById(R.id.datePickerAddCarManufacturedData);
         et_emission_standard = findViewById(R.id.editTextAddCarEmissionStandard);
         et_engine_capacity = findViewById(R.id.editTextAddCarEngineCapacity);
+        et_fuel_type = findViewById(R.id.editTextAddCarFuelType);
         et_horse_power = findViewById(R.id.editTextAddCarHP);
         et_rim_size = findViewById(R.id.editTextAddCarRimSize);
         et_current_market_value = findViewById(R.id.editTextAddCarCurrMarketValue);
@@ -107,7 +109,7 @@ public class AddNewCarActivity extends AppCompatActivity {
     //Adauga in baza de date 'cars.db', informatiile depsre masina, documente si detaliile despre istoric service in tabelele aferente
     private void addTheCarInfoToDB(){
 
-        String carMake, carModel, carColor, carEmission, carEngine, carRimSize, carCurrentMarketValue;
+        String carMake, carModel, carColor, carEmission, carEngine, carFuelType, carRimSize, carCurrentMarketValue;
         byte[] carImage= new byte[0];
         int carHP, carOdometer;
         boolean carHasManualGearbox;
@@ -122,6 +124,7 @@ public class AddNewCarActivity extends AppCompatActivity {
         carManufacturedData = manufactured_data.getDayOfMonth() + "/" + manufactured_data.getMonth() + "/" + manufactured_data.getYear();
         carEmission = et_emission_standard.getText().toString();
         carEngine = et_engine_capacity.getText().toString();
+        carFuelType = et_fuel_type.getText().toString();
         carRimSize = et_rim_size.getText().toString();
         carCurrentMarketValue = et_current_market_value.getText().toString();
         carHasManualGearbox = manual_gearbox_checkbox.isChecked();
@@ -186,6 +189,11 @@ public class AddNewCarActivity extends AppCompatActivity {
             et_engine_capacity.requestFocus();
             return;
         }
+        if(carFuelType.isEmpty()){
+            et_fuel_type.setError("Introduceti tipul de combustibil al masinii!");
+            et_fuel_type.requestFocus();
+            return;
+        }
         if(carCurrentMarketValue.isEmpty()) {
             et_current_market_value.setError("Scrieti ce valoare credeti ca are masina acum.");
             et_current_market_value.requestFocus();
@@ -204,6 +212,7 @@ public class AddNewCarActivity extends AppCompatActivity {
                         carManufacturedData,
                         carEmission,
                         carEngine,
+                        carFuelType,
                         carHP,
                         carRimSize,
                         carCurrentMarketValue,
@@ -223,7 +232,9 @@ public class AddNewCarActivity extends AppCompatActivity {
                 serviceHistory = new ServiceHistoryModel(
                         carMake+carModel+carManufacturedData+"CarIDserviceHistory",
                         serviceDate,
-                        serviceDetails
+                        serviceDetails,
+                        carMake+carModel+carManufacturedData+"CarID"
+
                 );
             }catch(Exception e) {
                 Toast.makeText(getApplicationContext(), "Eraore la crearea unei noi masini pentru db!", Toast.LENGTH_SHORT).show();
@@ -232,6 +243,7 @@ public class AddNewCarActivity extends AppCompatActivity {
                         "error",
                         "error",
                         "error",
+                        "erorr",
                         "error",
                         "error",
                         "error",
@@ -251,7 +263,8 @@ public class AddNewCarActivity extends AppCompatActivity {
                         "0");
                 serviceHistory = new ServiceHistoryModel("0",
                         "0",
-                        "0");
+                        "0",
+                        "-1");
             }
 
             DBHelper dbHelper = new DBHelper(AddNewCarActivity.this);

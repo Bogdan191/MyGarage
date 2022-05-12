@@ -44,6 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginLeft="10sp"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:hint="Marca (Ex:  Ford)"
@@ -67,6 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginLeft="10sp"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:hint="Ex: Focus"
@@ -156,7 +158,7 @@
                     android:id="@+id/textAddCarEngineCapacity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Motor :" />
+                    android:text="Motor:" />
 
                 <EditText
                     android:id="@+id/editTextAddCarEngineCapacity"
@@ -164,6 +166,27 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="38sp"
                     android:hint="Ex: 1.6L"
+                    android:inputType="textPersonName"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textAddCarFuelType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Combustibil:" />
+
+                <EditText
+                    android:id="@+id/editTextAddCarFuelType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5sp"
+                    android:hint="Ex: Diesel"
                     android:inputType="textPersonName"
                     android:textSize="15sp" />
             </LinearLayout>

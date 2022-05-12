@@ -25,7 +25,7 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Up
 
     TextView textViewCarName;
     TextView tvCarManufacturedData;
-    TextView tvCarColor, tvCarOdometer, tvCarEngine, tvCarHP, tvCarEmission, tvCarRimSize, tvCarGearbox, tvCarMarketValue;
+    TextView tvCarColor, tvCarOdometer, tvCarEngine, tvcarFuelType, tvCarHP, tvCarEmission, tvCarRimSize, tvCarGearbox, tvCarMarketValue;
 
     ImageView ivCarDetails;
     ImageButton buttonDeleteCar;
@@ -48,6 +48,7 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Up
         tvCarOdometer = findViewById(R.id.tvCarOdometer);
         tvCarColor = findViewById(R.id.tvCarColor);
         tvCarEngine = findViewById(R.id.tvCarEngine);
+        tvcarFuelType = findViewById(R.id.tvCarFuelType);
         tvCarHP = findViewById(R.id.tvCarHP);
         tvCarEmission = findViewById(R.id.tvCarEmission);
         tvCarRimSize = findViewById(R.id.tvCarRimSize);
@@ -64,6 +65,7 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Up
         tvCarOdometer.setText(car.getOdometer()+" km");
         tvCarColor.setText(car.getColor());
         tvCarEngine.setText(car.getEngine_capacity() + "L");
+        tvcarFuelType.setText(car.getFuel_type());
         tvCarHP.setText(car.getHorse_power() + " CP");
         tvCarEmission.setText(car.getEmission_standard());
         tvCarRimSize.setText(car.getRim_size());
