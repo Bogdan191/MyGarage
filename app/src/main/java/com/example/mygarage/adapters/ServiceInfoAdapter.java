@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
+import com.example.mygarage.DBHelper;
 import com.example.mygarage.R;
 import com.example.mygarage.models.News;
 import com.example.mygarage.models.ServiceHistoryModel;
@@ -45,6 +47,9 @@ public class ServiceInfoAdapter  extends RecyclerView.Adapter<ServiceInfoAdapter
             @Override
             public void onClick(View v) {
                 //TODO: implement db logic for delete service info
+                String serviceId = serviceHistoryModel.getId();
+                DBHelper db = new DBHelper(context);
+                db.DeleteServiceHistory(serviceId);
             }
         });
     }
@@ -65,8 +70,6 @@ public class ServiceInfoAdapter  extends RecyclerView.Adapter<ServiceInfoAdapter
             titleServiceInfo = itemView.findViewById(R.id.tvServiceInfoData);
             serviceDescription = itemView.findViewById(R.id.tvServiceInfoDetails);
             buttonServiceInfoDelete = itemView.findViewById(R.id.buttonServiceInfoDelete);
-
-
         }
     }
 

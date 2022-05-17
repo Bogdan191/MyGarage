@@ -362,4 +362,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return insert != -1;
 
     }
+
+    public void DeleteServiceHistory(String serviceId) {
+
+        String queryString = " DELETE FROM " + SERVICE_HISTORY_TABLE + " WHERE " + COLUMN_SERVICE_HISTORY_ID + " LIKE '%" + serviceId + "%'";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        db.execSQL(queryString);
+        db.close();
+
+    }
 }
