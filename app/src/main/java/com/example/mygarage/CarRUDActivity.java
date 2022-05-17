@@ -116,7 +116,7 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Up
         super.onStart();
 
     }
-    //TODO: implementeaza functia de deschis dialogul pentru editarea masinii si salvarea in baza de date dupa ce a fost creat dialogul
+
     private void seeDialogForEditCar(String carId){
             openCarEditDialog(carId);
     }
@@ -184,6 +184,11 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Up
     }
     @Override
     public void saveDocsNewEndDate(String newDate, String typeUdpate) {
+
+    }
+
+    @Override
+    public void saveNewServiceInfo(String date, String details) {
 
     }
 }

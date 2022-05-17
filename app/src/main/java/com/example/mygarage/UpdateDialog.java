@@ -46,7 +46,9 @@ public class UpdateDialog extends AppCompatDialogFragment {
             case "UPDATE_ROAD_TAX":
                 builder = setTheDialogForRoadTaxUpdate();
                 return builder.create();
-
+            case "ADD_SERVICE_INFO":
+                builder = setTheDialogForAddNewServiceInfo();
+                return builder.create();
         }
 
         return builder.create();
@@ -70,6 +72,8 @@ public class UpdateDialog extends AppCompatDialogFragment {
         void saveNewDataForCar(String carOometer, String carColor);
 
         void saveDocsNewEndDate(String newDate, String typeUpdate);
+
+        void saveNewServiceInfo(String date, String details);
     }
 
 
@@ -195,6 +199,38 @@ public class UpdateDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String newITPEndDate =  dp_newDate.getDayOfMonth() + "/" + (dp_newDate.getMonth() + 1) + "/" + dp_newDate.getYear();
                         listener.saveDocsNewEndDate(newITPEndDate, "UPDATE_ROAD_TAX");
+                    }
+                });
+
+        return builder;
+    }
+
+    private AlertDialog.Builder setTheDialogForAddNewServiceInfo() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        String title =  "Adauga o noua intrare service";
+        String negativeButton = "Renunta";
+        String positiveButton = "Salveaza";
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_layout_add_service_info, null);
+
+        DatePicker dp_newDate = view.findViewById(R.id.datePickerAddServiceInfoCar);
+        EditText et_service_info = view.findViewById(R.id.addServiceInfoCarDetails);
+
+
+        builder.setView(view)
+                .setTitle(title)
+                .setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String date =  dp_newDate.getDayOfMonth() + "/" + (dp_newDate.getMonth() + 1) + "/" + dp_newDate.getYear();
+                        listener.saveNewServiceInfo(date, et_service_info.getText().toString());
                     }
                 });
 

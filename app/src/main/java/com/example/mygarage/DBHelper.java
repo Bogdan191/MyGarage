@@ -14,6 +14,7 @@ import com.example.mygarage.models.ServiceHistoryModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -309,24 +310,27 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public ServiceHistoryModel getServiceHistoryOfCar(String carId) {
+    public List<ServiceHistoryModel> getServiceHistoryOfCar(String carId) {
         String queryString = "SELECT * FROM " + SERVICE_HISTORY_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
+        List<ServiceHistoryModel> serviceInfoCar = new ArrayList<>();
+
+
 
         if(cursor.moveToFirst()) {
             //mergi printre resultate si pune-le in lista
             do {
 
-                String serviceID = cursor.getString(0);
-                String referenceToCar = carId.concat("serviceHistory");
-                if(referenceToCar.equals(serviceID)) {
+                String serviceCarID = cursor.getString(3);
+                if(carId.equals(serviceCarID)) {
 
+                    String serviceID = cursor.getString(0);
                     String serviceMadeDate = cursor.getString(1);
                     String serviceDetails = cursor.getString(2);
 
                     ServiceHistoryModel serviceHistoryModel = new ServiceHistoryModel(serviceID, serviceMadeDate, serviceDetails, carId);
-                    return serviceHistoryModel;
+                    serviceInfoCar.add(serviceHistoryModel);
                 }
 
             }while(cursor.moveToNext());
@@ -337,12 +341,25 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         db.close();
-        return null;
+        return serviceInfoCar;
     }
 
 
+    public boolean AddNewServiceInfoCar(String date, String details, String carId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        //hashmap
+        ContentValues cv =  new ContentValues();
 
+        Random  rand = new Random();
+        int randServiceID = rand.nextInt(101);
+        String serviceId = "CarServiceHistory" + randServiceID;
+        cv.put(COLUMN_SERVICE_HISTORY_ID, serviceId);
+        cv.put(COLUMN_SERVICE_MADE_DATE, date);
+        cv.put(COLUMNS_DETAILS, details);
+        cv.put(COLUMN_CAR_ID, carId);
 
+        long insert = db.insert(SERVICE_HISTORY_TABLE, null, cv);
+        return insert != -1;
 
-
+    }
 }

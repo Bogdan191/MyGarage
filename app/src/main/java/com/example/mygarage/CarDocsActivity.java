@@ -126,6 +126,11 @@ public class CarDocsActivity extends AppCompatActivity implements UpdateDialog.U
     }
 
     @Override
+    public void saveNewServiceInfo(String date, String details) {
+
+    }
+
+    @Override
     public void saveDocsNewEndDate(String newDate, String updateType) {
 
         DBHelper db = new DBHelper(CarDocsActivity.this);

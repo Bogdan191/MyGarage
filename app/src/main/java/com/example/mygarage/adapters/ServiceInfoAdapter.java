@@ -1,0 +1,73 @@
+package com.example.mygarage.adapters;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import com.example.mygarage.R;
+import com.example.mygarage.models.News;
+import com.example.mygarage.models.ServiceHistoryModel;
+import java.util.ArrayList;
+
+public class ServiceInfoAdapter  extends RecyclerView.Adapter<ServiceInfoAdapter.MyViewHolder> {
+    Context context;
+
+    ArrayList<ServiceHistoryModel> listServiceInfo;
+
+    public ServiceInfoAdapter(Context context, ArrayList<ServiceHistoryModel> listServiceInfo) {
+        this.context = context;
+        this.listServiceInfo = listServiceInfo;
+    }
+
+    @NonNull
+    @Override
+    public ServiceInfoAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.service_info_item, parent, false);
+        return new ServiceInfoAdapter.MyViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ServiceInfoAdapter.MyViewHolder holder, int position) {
+
+        ServiceHistoryModel serviceHistoryModel = listServiceInfo.get(position);
+
+        holder.titleServiceInfo.setText("Data: " + serviceHistoryModel.getService_made_date());
+        holder.serviceDescription.setText(serviceHistoryModel.getDetails());
+
+
+        holder.buttonServiceInfoDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: implement db logic for delete service info
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return listServiceInfo.size();
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+
+        TextView titleServiceInfo, serviceDescription;
+        ImageButton buttonServiceInfoDelete;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            titleServiceInfo = itemView.findViewById(R.id.tvServiceInfoData);
+            serviceDescription = itemView.findViewById(R.id.tvServiceInfoDetails);
+            buttonServiceInfoDelete = itemView.findViewById(R.id.buttonServiceInfoDelete);
+
+
+        }
+    }
+
+}
