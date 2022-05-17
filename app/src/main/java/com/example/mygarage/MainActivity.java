@@ -5,15 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mygarage.adapters.NewsAdapter;
+import com.example.mygarage.models.CarModel;
+import com.example.mygarage.models.DocumentsModel;
 import com.example.mygarage.models.News;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,11 +29,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button logOutButton;
+    ImageButton buttonNotifications;
     private FirebaseAuth mAuth;
 
     RecyclerView recyclerViewNews;
@@ -73,8 +86,14 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        //comanda de schimbat tema
-        //this.setTheme(R.style.Theme_Design_Light_NoActionBar);
+        buttonNotifications = findViewById(R.id.buttonNotifications);
+        buttonNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               pushNotifications();
+            }
+        });
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -152,6 +171,98 @@ public class MainActivity extends AppCompatActivity {
         }catch(Exception e) {
             Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void pushNotifications() {
+        DBHelper dbHelper = new DBHelper(MainActivity.this);
+        List<CarModel> cars;
+        cars = dbHelper.getCars();
+
+        List<String> messageNotifications = new ArrayList<>();
+        for (CarModel c: cars) {
+            DocumentsModel docsOfCar = dbHelper.getDocumentsOfCar(c.getId());
+
+            Date endDateITP, endDateInsurance, endDateRoadTax;
+            String nameOfCar = c.getMake() + " " + c.getModel();
+
+            try {
+                endDateITP = new SimpleDateFormat("dd/MM/yyyy").parse(docsOfCar.getItp_end_date());
+                String nowDate =LocalDate.now().toString().replace('-', '/');
+                Date now = new SimpleDateFormat("yyyy/MM/dd").parse(nowDate);
+
+                long daysBettween = TimeUnit.DAYS.convert((endDateITP.getTime() - now.getTime()), TimeUnit.MILLISECONDS);
+                if(daysBettween <= 7 && daysBettween >= 0) {
+                    messageNotifications.add("Itp-ul masinii " +  nameOfCar + " expira in curand, mai exact pe data de " +
+                            docsOfCar.getItp_end_date());
+
+                }else if(daysBettween < 0){
+                    messageNotifications.add("Itp-ul masinii " +  nameOfCar + " a expirat pe data de " +
+                            docsOfCar.getItp_end_date());
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                endDateInsurance = new SimpleDateFormat("dd/MM/yyyy").parse(docsOfCar.getInsurance_end_date());
+                String nowDate =LocalDate.now().toString().replace('-', '/');
+                Date now = new SimpleDateFormat("yyyy/MM/dd").parse(nowDate);;
+
+                long daysBetween = TimeUnit.DAYS.convert(( endDateInsurance.getTime() - now.getTime()), TimeUnit.MILLISECONDS);
+                if(daysBetween <= 7 && daysBetween >= 0) {
+                    messageNotifications.add("Asigurarea masinii " +  nameOfCar + " expira in curand, mai exact pe data de " +
+                            docsOfCar.getInsurance_end_date());
+
+                }else if(daysBetween < 0){
+                    messageNotifications.add("Asigurarea masinii " +  nameOfCar + " a expirat pe data de " +
+                            docsOfCar.getInsurance_end_date());
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                endDateRoadTax = new SimpleDateFormat("dd/MM/yyyy").parse(docsOfCar.getRoad_tax());
+                String nowDate = LocalDate.now().toString().replace('-', '/');
+                Date now = new SimpleDateFormat("yyyy/MM/dd").parse(nowDate);
+
+                long daysBettween = TimeUnit.DAYS.convert((endDateRoadTax.getTime() - now.getTime()), TimeUnit.MILLISECONDS);
+                if(daysBettween <= 7 && daysBettween >= 0) {
+                    messageNotifications.add("Rovinieta masinii " +  nameOfCar + " expira in curand, mai exact pe data de " +
+                            docsOfCar.getRoad_tax());
+
+                }else if(daysBettween < 0){
+                    messageNotifications.add("Itp-ul masinii " +  nameOfCar + " a expirat pe data de " +
+                            docsOfCar.getRoad_tax());
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        if(messageNotifications.size() == 0) {
+            messageNotifications.add("Momentan, nu exista notificari!\n");
+        }
+
+        AlertDialog alertDeleteCarDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDeleteCarDialog.setTitle("Notificari documente");
+
+        String notificationBody = "";
+        for(String s : messageNotifications) {
+            notificationBody = notificationBody.concat(s + "\n");
+        }
+        alertDeleteCarDialog.setMessage(notificationBody);
+        alertDeleteCarDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        alertDeleteCarDialog.show();
     }
 
 
