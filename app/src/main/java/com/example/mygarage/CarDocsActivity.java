@@ -147,5 +147,13 @@ public class CarDocsActivity extends AppCompatActivity implements UpdateDialog.U
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+        finish();
+        startActivity(new Intent(getApplicationContext(), MyCarsActivity.class));
+
+    }
+
 
 }

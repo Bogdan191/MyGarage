@@ -191,4 +191,12 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Up
     public void saveNewServiceInfo(String date, String details) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+        finish();
+        startActivity(new Intent(getApplicationContext(), MyCarsActivity.class));
+
+    }
 }

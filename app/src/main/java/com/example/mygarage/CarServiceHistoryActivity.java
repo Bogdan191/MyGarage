@@ -118,4 +118,12 @@ public class CarServiceHistoryActivity extends AppCompatActivity implements Upda
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+        finish();
+        startActivity(new Intent(getApplicationContext(), MyCarsActivity.class));
+
+    }
 }
