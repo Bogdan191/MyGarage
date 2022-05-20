@@ -20,36 +20,42 @@
     <ScrollView
         android:id="@+id/scrollViewServiceInfoCar"
         android:layout_width="match_parent"
-        android:layout_height="406dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/titleServiceInfoCar"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="5dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/serviceHistoryCar"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/titleServiceInfoCar"
-            android:layout_marginBottom="30dp">
+            android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/serviceHistoryCar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/titleServiceInfoCar"
+                android:layout_marginBottom="1dp">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
+            <Button
+                android:id="@+id/buttonAddNewServiceInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/bottom_menu_my_car_details"
+                android:layout_below="@+id/serviceHistoryCar"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="50dp"
+                android:text="Adauga o noua intrare service"
+                android:textSize="15sp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/buttonAddNewServiceInfo"
-        android:layout_width="match_parent"
-        android:layout_height="37dp"
-        android:layout_above="@+id/bottom_menu_my_car_details"
-        android:layout_below="@+id/scrollViewServiceInfoCar"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="14dp"
-        android:text="Adauga o noua intrare service"
-        android:textSize="15sp">
 
-    </Button>
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_menu_my_car_details"
