@@ -10,6 +10,13 @@
     tools:context=".LoginActivity">
 
 
+    <ImageView
+        android:id="@+id/imageViewMyGarageLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_garage_image_logo"
+        app:layout_constraintBottom_toTopOf="@+id/textEmailLogin"
+        app:layout_constraintTop_toTopOf="parent" />
     <EditText
         android:id="@+id/textEmailLogin"
         android:layout_width="300dp"
@@ -25,7 +32,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textPasswordLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageViewMyGarageLogo"
         app:layout_constraintVertical_bias="0.805" />
 
     <EditText
