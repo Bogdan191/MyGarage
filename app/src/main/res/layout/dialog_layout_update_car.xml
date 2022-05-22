@@ -17,5 +17,13 @@
         android:layout_below="@id/update_car_odometer"
         android:layout_alignParentStart="true"
         android:hint="Noua valoare pentru culoare" />
+    <EditText
+        android:id="@+id/update_car_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/update_car_color"
+        android:layout_alignParentStart="true"
+        android:hint="Noua valoare pentru pretul masinii tale" />
+
 
 </RelativeLayout>

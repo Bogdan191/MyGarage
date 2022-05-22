@@ -3,6 +3,7 @@ package com.example.mygarage;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,7 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Up
     ImageView ivCarDetails;
     ImageButton buttonDeleteCar;
     ImageButton buttonEditCar;
+    ImageButton buttonPriceCar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Up
 
         buttonEditCar = findViewById(R.id.buttonEditCarFromDB);
         buttonDeleteCar = findViewById(R.id.buttonDeleteCarFromDB);
+        buttonPriceCar = findViewById(R.id.buttonCarPricePrediction);
 
         //afiseaza datele masinii in campurile aferente
         textViewCarName.setText(new StringBuilder().append(car.getMake()).append(" ").append(car.getModel()).toString());
@@ -78,6 +81,15 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Up
                 seeDialogForEditCar(car.getId());
             }
         });
+
+        buttonPriceCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.vezicatface.ro"));
+                startActivity(browser);
+            }
+        });
+
         buttonDeleteCar.setOnClickListener(v -> deleteCarFromDB(car.getId()));
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_menu_my_car_details);
@@ -165,7 +177,7 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Up
     }
 
     @Override
-    public void saveNewDataForCar(String carOdometer, String carColor) {
+    public void saveNewDataForCar(String carOdometer, String carColor, String carPrice) {
 
         String carId = getIntent().getStringExtra("CAR_ID");
         DBHelper dbHelper = new DBHelper(CarRUDActivity.this);
@@ -174,6 +186,10 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Up
         }
         if(carOdometer.length() > 0){
             dbHelper.updateCarOdometer(carId, carOdometer);
+        }
+
+        if(carPrice.length() > 0) {
+            dbHelper.updateCarPrice(carId, carPrice);
         }
 
         //refresh the activity

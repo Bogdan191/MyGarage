@@ -121,7 +121,7 @@ public class CarDocsActivity extends AppCompatActivity implements UpdateDialog.U
     }
 
     @Override
-    public void saveNewDataForCar(String carOometer, String carColor) {
+    public void saveNewDataForCar(String carOometer, String carColor, String carPrice) {
 
     }
 

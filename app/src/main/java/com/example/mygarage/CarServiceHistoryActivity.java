@@ -97,7 +97,7 @@ public class CarServiceHistoryActivity extends AppCompatActivity implements Upda
     }
 
     @Override
-    public void saveNewDataForCar(String carOometer, String carColor) {
+    public void saveNewDataForCar(String carOometer, String carColor, String carPrice) {
 
     }
 

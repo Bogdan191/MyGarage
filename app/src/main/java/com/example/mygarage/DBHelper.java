@@ -194,6 +194,16 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean updateCarPrice(String carId, String carPrice) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_CAR_CURRENT_VALUE, carPrice);
+        db.update(MY_CARS_TABLE, cv, COLUMN_CAR_ID + "=?", new String[] {carId});
+        return true;
+    }
+
     public boolean deleteCar(String carId) {
 
         String queryString = " DELETE FROM " + MY_CARS_TABLE + " WHERE " + COLUMN_CAR_ID + " LIKE '%" + carId + "%'";

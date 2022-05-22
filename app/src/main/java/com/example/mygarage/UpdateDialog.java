@@ -19,6 +19,7 @@ import java.util.List;
 public class UpdateDialog extends AppCompatDialogFragment {
     private EditText editTextUpdateCarOdometer;
     private EditText editTextUpdateCarColor;
+    private EditText editTextUpdateCarPrice;
     private UpdateCarListener listener;
 
 
@@ -69,7 +70,7 @@ public class UpdateDialog extends AppCompatDialogFragment {
     }
 
     public interface UpdateCarListener {
-        void saveNewDataForCar(String carOometer, String carColor);
+        void saveNewDataForCar(String carOometer, String carColor, String carPrice);
 
         void saveDocsNewEndDate(String newDate, String typeUpdate);
 
@@ -102,12 +103,14 @@ public class UpdateDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String carOdometer = editTextUpdateCarOdometer.getText().toString();
                         String carColor = editTextUpdateCarColor.getText().toString();
-                        listener.saveNewDataForCar(carOdometer, carColor);
+                        String carPrice = editTextUpdateCarPrice.getText().toString();
+                        listener.saveNewDataForCar(carOdometer, carColor, carPrice);
                     }
                 });
 
         editTextUpdateCarOdometer = view.findViewById(R.id.update_car_odometer);
         editTextUpdateCarColor = view.findViewById(R.id.update_car_color);
+        editTextUpdateCarPrice = view.findViewById(R.id.update_car_price);
 
         return builder;
     }
