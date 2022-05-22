@@ -265,5 +265,8 @@ public class MainActivity extends AppCompatActivity {
         alertDeleteCarDialog.show();
     }
 
+    @Override
+    public void onBackPressed() {
 
+    }
 }

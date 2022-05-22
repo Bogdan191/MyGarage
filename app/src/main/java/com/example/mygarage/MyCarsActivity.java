@@ -124,4 +124,9 @@ public class MyCarsActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
