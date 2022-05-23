@@ -42,7 +42,7 @@ public class CarServiceHistoryActivity extends AppCompatActivity implements Upda
         carId = getIntent().getStringExtra("CAR_ID");
         DBHelper dbHelper = new DBHelper(CarServiceHistoryActivity.this);
         List<ServiceHistoryModel> carServiceHistory = dbHelper.getServiceHistoryOfCar(carId);
-         recyclerViewServiceInfoCar = findViewById(R.id.serviceHistoryCar);
+        recyclerViewServiceInfoCar = findViewById(R.id.serviceHistoryCar);
         recyclerViewServiceInfoCar.setHasFixedSize(true);
         recyclerViewServiceInfoCar.setLayoutManager(new LinearLayoutManager(this));
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -50,6 +51,8 @@ public class ServiceInfoAdapter  extends RecyclerView.Adapter<ServiceInfoAdapter
                 String serviceId = serviceHistoryModel.getId();
                 DBHelper db = new DBHelper(context);
                 db.DeleteServiceHistory(serviceId);
+
+                Toast.makeText(context, "Istoriv service sters! Reincarcati pagina pentru a reimprospata lista!", Toast.LENGTH_LONG);
             }
         });
     }

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         buttonNotifications = findViewById(R.id.buttonNotifications);
+        getNotificationsBody();
         buttonNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,6 +176,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void pushNotifications() {
+
+
+        AlertDialog alertDeleteCarDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDeleteCarDialog.setTitle("Notificari documente");
+
+        String notificationBody = "";
+        List<String> messageNotifications = getNotificationsBody();
+        for(String s : messageNotifications) {
+            notificationBody = notificationBody.concat(s + "\n");
+        }
+        alertDeleteCarDialog.setMessage(notificationBody);
+        alertDeleteCarDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        alertDeleteCarDialog.show();
+    }
+
+    private List<String> getNotificationsBody() {
         DBHelper dbHelper = new DBHelper(MainActivity.this);
         List<CarModel> cars;
         cars = dbHelper.getCars();
@@ -244,25 +269,12 @@ public class MainActivity extends AppCompatActivity {
 
         if(messageNotifications.size() == 0) {
             messageNotifications.add("Momentan, nu exista notificari!\n");
+            buttonNotifications.setImageResource(R.drawable.ic_notifications_off);
+        }else {
+            buttonNotifications.setImageResource(R.drawable.ic_notifications_on);
         }
 
-        AlertDialog alertDeleteCarDialog = new AlertDialog.Builder(MainActivity.this).create();
-        alertDeleteCarDialog.setTitle("Notificari documente");
-
-        String notificationBody = "";
-        for(String s : messageNotifications) {
-            notificationBody = notificationBody.concat(s + "\n");
-        }
-        alertDeleteCarDialog.setMessage(notificationBody);
-        alertDeleteCarDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-        alertDeleteCarDialog.show();
+        return messageNotifications;
     }
 
     @Override
