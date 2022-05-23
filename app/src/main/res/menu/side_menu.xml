@@ -12,7 +12,7 @@
     <item
         android:id="@+id/side_menu_log_out"
         android:icon="@drawable/ic_log_out_side_menu"
-        android:title="Iesi din cont"
+        android:title="Iesiti din cont"
         app:showAsAction="collapseActionView">
 
     </item>

@@ -193,7 +193,7 @@ public class AddNewCarActivity extends AppCompatActivity {
 
         Bitmap bitmapCarImage = ((BitmapDrawable) iv_carImage.getDrawable()).getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmapCarImage.compress(Bitmap.CompressFormat.JPEG, 5, baos);
+        bitmapCarImage.compress(Bitmap.CompressFormat.JPEG, 10, baos);
         carImage = baos.toByteArray();
 
 
