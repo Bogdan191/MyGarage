@@ -1,7 +1,10 @@
 package com.example.mygarage;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,5 +28,19 @@ public class Utils {
         }
 
         return byteBuff.toByteArray();
+    }
+
+    public static void openCarPartsSite(Context context) {
+
+        Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.autokarma.ro"));
+        context.startActivity(browser);
+    }
+
+    public static void findService(Context context) {
+
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q=service");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        context.startActivity(mapIntent);
     }
 }

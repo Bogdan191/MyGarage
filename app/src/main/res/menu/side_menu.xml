@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/side_menu_pats_shop"
+        android:title="Piese auto"
+        app:showAsAction="collapseActionView"/>
+    <item
+        android:id="@+id/side_menu_find_service"
+        android:title="Cauta Service auto"
+        app:showAsAction="collapseActionView" />
+
+    <item
         android:id="@+id/side_menu_settings"
         android:icon="@drawable/ic_settings_side_menu"
         android:title="Setari"

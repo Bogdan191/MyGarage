@@ -101,6 +101,12 @@ public class MyCarsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.side_menu_pats_shop:
+                Utils.openCarPartsSite(MyCarsActivity.this);
+                break;
+            case R.id.side_menu_find_service:
+                Utils.findService(MyCarsActivity.this);
+                break;
             case R.id.side_menu_settings:
                 Toast.makeText(this, "Ai ales sa mergi spre setari! Momentan, acest serviciu, nu este disponibil!", Toast.LENGTH_LONG).show();
                 break;
