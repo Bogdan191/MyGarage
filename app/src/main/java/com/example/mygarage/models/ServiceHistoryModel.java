@@ -4,12 +4,14 @@ public class ServiceHistoryModel {
 
     private String id;
     private String service_made_date;
+    private String typeOfIntervention;
     private String details;
     private String carID;
 
-    public ServiceHistoryModel(String id, String service_made_date, String details, String carID) {
+    public ServiceHistoryModel(String id, String service_made_date, String typeOfIntervention, String details, String carID) {
         this.id = id;
         this.service_made_date = service_made_date;
+        this.typeOfIntervention = typeOfIntervention;
         this.details = details;
         this.carID = carID;
     }
@@ -33,6 +35,15 @@ public class ServiceHistoryModel {
     public void setService_made_date(String service_made_date) {
         this.service_made_date = service_made_date;
     }
+
+    public String getTypeOfIntervention() {
+        return typeOfIntervention;
+    }
+
+    public void setTypeOfIntervention(String typeOfIntervention) {
+        this.typeOfIntervention = typeOfIntervention;
+    }
+
 
     public String getDetails() {
         return details;

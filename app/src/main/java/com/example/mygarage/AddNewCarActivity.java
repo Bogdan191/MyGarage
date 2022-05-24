@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ public class AddNewCarActivity extends AppCompatActivity {
     private DatePicker manufactured_data;
     private EditText et_emission_standard;
     private EditText et_engine_capacity;
-    private  EditText et_fuel_type;
+    private Spinner spinner_fuel_type;
     private EditText et_horse_power;
     private EditText et_rim_size;
     private EditText et_current_market_value;
@@ -55,6 +56,7 @@ public class AddNewCarActivity extends AppCompatActivity {
     //Campurile care contin date despre istoricul service
     private DatePicker service_date;
     private EditText et_service_details;
+    private Spinner spinner_type_service_intervention;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,7 +89,8 @@ public class AddNewCarActivity extends AppCompatActivity {
         manufactured_data = findViewById(R.id.datePickerAddCarManufacturedData);
         et_emission_standard = findViewById(R.id.editTextAddCarEmissionStandard);
         et_engine_capacity = findViewById(R.id.editTextAddCarEngineCapacity);
-        et_fuel_type = findViewById(R.id.editTextAddCarFuelType);
+        //et_fuel_type = findViewById(R.id.editTextAddCarFuelType);
+        spinner_fuel_type = findViewById(R.id.spinnerChooseCarFuelType);
         et_horse_power = findViewById(R.id.editTextAddCarHP);
         et_rim_size = findViewById(R.id.editTextAddCarRimSize);
         et_current_market_value = findViewById(R.id.editTextAddCarCurrMarketValue);
@@ -103,6 +106,7 @@ public class AddNewCarActivity extends AppCompatActivity {
         // adauga referinte catre campurile care contin date despre istoricul service
         service_date = findViewById(R.id.datePickerAddCarServiceDate);
         et_service_details = findViewById(R.id.editTextAddCarServiceDetails);
+        spinner_type_service_intervention = findViewById(R.id.spinnerChooseTypeOfServiceWork);
 
 
     }
@@ -144,10 +148,10 @@ public class AddNewCarActivity extends AppCompatActivity {
             return;
         }
 
-        carFuelType = et_fuel_type.getText().toString();
-        if(carFuelType.isEmpty()){
-            et_fuel_type.setError("Introduceti tipul de combustibil al masinii!");
-            et_fuel_type.requestFocus();
+        carFuelType = spinner_fuel_type.getSelectedItem().toString();
+        if(carFuelType.equals("-")){
+            spinner_fuel_type.requestFocus();
+            Toast.makeText(getApplicationContext(), "Alegeti tipul de combustibil!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -205,9 +209,11 @@ public class AddNewCarActivity extends AppCompatActivity {
 
         //obtine datele despre istoricul service
         String serviceDate;
-        String serviceDetails;
+        String serviceDetails, serviceTypeIntervention;
         serviceDate = service_date.getDayOfMonth() + "/" + (service_date.getMonth() + 1) + "/" + service_date.getYear();
         serviceDetails = et_service_details.getText().toString();
+
+        serviceTypeIntervention = spinner_type_service_intervention.getSelectedItem().toString();
 
         CarModel newCar;
         DocumentsModel documents;
@@ -238,10 +244,11 @@ public class AddNewCarActivity extends AppCompatActivity {
                         docRoadTax,
                         carMake + carModel + carManufacturedData+"CarID"
                 );
-                if(!serviceDetails.isEmpty()) {
+                if(!serviceTypeIntervention.equals("N/A")) {
                     serviceHistory = new ServiceHistoryModel(
                             carMake+carModel+carManufacturedData+"CarIDserviceHistory",
                             serviceDate,
+                            serviceTypeIntervention,
                             serviceDetails,
                             carMake+carModel+carManufacturedData+"CarID"
 
@@ -273,6 +280,7 @@ public class AddNewCarActivity extends AppCompatActivity {
                         "0",
                         "0");
                 serviceHistory = new ServiceHistoryModel("0",
+                        "0",
                         "0",
                         "0",
                         "-1");

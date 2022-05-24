@@ -204,7 +204,7 @@ public class CarRUDActivity extends AppCompatActivity implements UpdateDialog.Up
     }
 
     @Override
-    public void saveNewServiceInfo(String date, String details) {
+    public void saveNewServiceInfo(String date, String typeOfserviceWork, String details) {
 
     }
 

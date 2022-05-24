@@ -40,8 +40,8 @@ public class ServiceInfoAdapter  extends RecyclerView.Adapter<ServiceInfoAdapter
 
         ServiceHistoryModel serviceHistoryModel = listServiceInfo.get(position);
 
-        holder.titleServiceInfo.setText("Data: " + serviceHistoryModel.getService_made_date());
-        holder.serviceDescription.setText(serviceHistoryModel.getDetails());
+        holder.titleServiceInfo.setText("Tip interventie: " + serviceHistoryModel.getTypeOfIntervention());
+        holder.serviceDescription.setText("Detalii: " + serviceHistoryModel.getDetails() + " \n\\nData: " + serviceHistoryModel.getService_made_date());
 
 
         holder.buttonServiceInfoDelete.setOnClickListener(new View.OnClickListener() {

@@ -34,4 +34,40 @@
     <string name="model">Model:</string>
     <string name="marca_ex_ford">Marca (Ex: Ford)</string>
     <string name="adaugati_o_noua_masina">Adaugati o noua masina</string>
+
+
+    <string-array name="engines">
+        <item> - </item>
+        <item> 0.9</item>
+        <item> 1.0</item>
+        <item> 1.2</item>
+        <item> 1.4</item>
+        <item> 1.5</item>
+        <item> 1.6</item>
+        <item> 1.8</item>
+        <item> 1.9</item>
+        <item> 2.0</item>
+        <item> 2.2</item>
+        <item> 2.5</item>
+        <item> 2.7</item>
+        <item> 3.0</item>
+    </string-array>
+
+    <string-array name="carFuelType">
+        <item> - </item>
+        <item> Diesel</item>
+        <item> Benzina</item>
+        <item> Hybrid</item>
+        <item> Electric</item>
+    </string-array>
+
+    <string-array name="typeOfServiceWork">
+        <item> N/A</item>
+        <item> Revizie anuala </item>
+        <item> Franare </item>
+        <item> Interventie motor</item>
+        <item> Articulatie/tren rulare</item>
+        <item> Electrica </item>
+        <item> Altceva </item>
+    </string-array>
 </resources>

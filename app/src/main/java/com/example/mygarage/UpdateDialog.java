@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
@@ -74,7 +75,7 @@ public class UpdateDialog extends AppCompatDialogFragment {
 
         void saveDocsNewEndDate(String newDate, String typeUpdate);
 
-        void saveNewServiceInfo(String date, String details);
+        void saveNewServiceInfo(String date, String typeOfServiceWork, String details);
     }
 
 
@@ -219,7 +220,7 @@ public class UpdateDialog extends AppCompatDialogFragment {
 
         DatePicker dp_newDate = view.findViewById(R.id.datePickerAddServiceInfoCar);
         EditText et_service_info = view.findViewById(R.id.addServiceInfoCarDetails);
-
+        Spinner spinner_type_Of_Work = view.findViewById(R.id.spinnerChooseTypeOfServiceWorkAdd);
 
         builder.setView(view)
                 .setTitle(title)
@@ -233,7 +234,8 @@ public class UpdateDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String date =  dp_newDate.getDayOfMonth() + "/" + (dp_newDate.getMonth() + 1) + "/" + dp_newDate.getYear();
-                        listener.saveNewServiceInfo(date, et_service_info.getText().toString());
+                        String typeOfServiceWork = spinner_type_Of_Work.getSelectedItem().toString();
+                        listener.saveNewServiceInfo(date, typeOfServiceWork, et_service_info.getText().toString());
                     }
                 });
 

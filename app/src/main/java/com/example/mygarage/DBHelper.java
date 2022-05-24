@@ -42,6 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_SERVICE_MADE_DATE = "SERVICE_MADE_DATE";
     public static final String COLUMNS_DETAILS = "DETAILS";
+    public static final String COLUMN_TYPE_SERVICE_WORK = "TYPE_SERVICE_WORK";
     public static final String SERVICE_HISTORY_TABLE = "SERVICE_HISTORY_TABLE";
     public static final String DOCUMENTS_TABLE = "DOCUMENTS_TABLE";
 
@@ -72,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(createTableStatement);
 
 
-        createTableStatement = "CREATE TABLE " + SERVICE_HISTORY_TABLE + "(" + COLUMN_SERVICE_HISTORY_ID + " TEXT PRIMARY KEY, " + COLUMN_SERVICE_MADE_DATE + " TEXT, " + COLUMNS_DETAILS + " TEXT, "
+        createTableStatement = "CREATE TABLE " + SERVICE_HISTORY_TABLE + "(" + COLUMN_SERVICE_HISTORY_ID + " TEXT PRIMARY KEY, " + COLUMN_SERVICE_MADE_DATE + " TEXT, " + COLUMN_TYPE_SERVICE_WORK + " TEXT, " + COLUMNS_DETAILS + " TEXT, "
                                 + COLUMN_CAR_ID + " TEXT, CONSTRAINT FK_CAR_ID FOREIGN KEY(" + COLUMN_CAR_ID + ")REFERENCES " + MY_CARS_TABLE + "(" + COLUMN_CAR_ID + "))";
 
         db.execSQL(createTableStatement);
@@ -312,6 +313,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_SERVICE_HISTORY_ID, serviceHistoryModel.getId());
         cv.put(COLUMN_SERVICE_MADE_DATE, serviceHistoryModel.getService_made_date());
+        cv.put(COLUMN_TYPE_SERVICE_WORK, serviceHistoryModel.getTypeOfIntervention());
         cv.put(COLUMNS_DETAILS, serviceHistoryModel.getDetails());
         cv.put(COLUMN_CAR_ID, serviceHistoryModel.getCarID());
 
@@ -332,14 +334,15 @@ public class DBHelper extends SQLiteOpenHelper {
             //mergi printre resultate si pune-le in lista
             do {
 
-                String serviceCarID = cursor.getString(3);
+                String serviceCarID = cursor.getString(4);
                 if(carId.equals(serviceCarID)) {
 
                     String serviceID = cursor.getString(0);
                     String serviceMadeDate = cursor.getString(1);
-                    String serviceDetails = cursor.getString(2);
+                    String typeOfServiceWork = cursor.getString(2);
+                    String serviceDetails = cursor.getString(3);
 
-                    ServiceHistoryModel serviceHistoryModel = new ServiceHistoryModel(serviceID, serviceMadeDate, serviceDetails, carId);
+                    ServiceHistoryModel serviceHistoryModel = new ServiceHistoryModel(serviceID, serviceMadeDate, typeOfServiceWork, serviceDetails, carId);
                     serviceInfoCar.add(serviceHistoryModel);
                 }
 
@@ -355,7 +358,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean AddNewServiceInfoCar(String date, String details, String carId) {
+    public boolean AddNewServiceInfoCar(String date, String typeOfServiceWork, String details, String carId) {
         SQLiteDatabase db = this.getWritableDatabase();
         //hashmap
         ContentValues cv =  new ContentValues();
@@ -365,6 +368,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String serviceId = "CarServiceHistory" + randServiceID;
         cv.put(COLUMN_SERVICE_HISTORY_ID, serviceId);
         cv.put(COLUMN_SERVICE_MADE_DATE, date);
+        cv.put(COLUMN_TYPE_SERVICE_WORK, typeOfServiceWork);
         cv.put(COLUMNS_DETAILS, details);
         cv.put(COLUMN_CAR_ID, carId);
 

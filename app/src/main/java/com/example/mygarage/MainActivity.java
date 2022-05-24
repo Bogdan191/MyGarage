@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         String notificationBody = "";
         List<String> messageNotifications = getNotificationsBody();
         for(String s : messageNotifications) {
-            notificationBody = notificationBody.concat(s + "\n");
+            notificationBody = notificationBody.concat(s + "\n\n");
         }
         alertDeleteCarDialog.setMessage(notificationBody);
         alertDeleteCarDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",

@@ -126,7 +126,7 @@ public class CarDocsActivity extends AppCompatActivity implements UpdateDialog.U
     }
 
     @Override
-    public void saveNewServiceInfo(String date, String details) {
+    public void saveNewServiceInfo(String date, String typeOfserviceWork, String details) {
 
     }
 

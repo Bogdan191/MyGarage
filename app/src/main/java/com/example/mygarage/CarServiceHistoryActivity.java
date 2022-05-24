@@ -102,11 +102,11 @@ public class CarServiceHistoryActivity extends AppCompatActivity implements Upda
     }
 
     @Override
-    public void saveNewServiceInfo(String date, String details) {
+    public void saveNewServiceInfo(String date, String typeOfServiceWork, String details) {
 
         DBHelper db = new DBHelper(CarServiceHistoryActivity.this);
         String carId = getIntent().getStringExtra("CAR_ID");
-        db.AddNewServiceInfoCar(date, details, carId);
+        db.AddNewServiceInfoCar(date, typeOfServiceWork, details, carId);
 
         //refresh the activity
         finish();
