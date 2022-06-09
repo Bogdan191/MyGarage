@@ -13,14 +13,12 @@
 
     <item
         android:id="@+id/side_menu_settings"
-        android:icon="@drawable/ic_settings_side_menu"
         android:title="Setari"
         app:showAsAction="collapseActionView">
 
     </item>
     <item
         android:id="@+id/side_menu_log_out"
-        android:icon="@drawable/ic_log_out_side_menu"
         android:title="Iesiti din cont"
         app:showAsAction="collapseActionView">
 

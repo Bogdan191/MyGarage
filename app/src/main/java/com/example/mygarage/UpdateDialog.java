@@ -86,7 +86,7 @@ public class UpdateDialog extends AppCompatDialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        String title = "Actualizeaza datele masinii dumneavoastra";
+        String title = "Actualizati datele masinii dumneavoastra";
         String negativeButton = "Inchide";
         String positiveButton = "Salveaza";
         LayoutInflater inflater = getActivity().getLayoutInflater();

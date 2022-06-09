@@ -3,6 +3,7 @@ package com.example.mygarage.adapters;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,13 @@ import java.util.ArrayList;
 
 public class ServiceInfoAdapter  extends RecyclerView.Adapter<ServiceInfoAdapter.MyViewHolder> {
     Context context;
-
+    ServiceInfoAdapter serviceInfoAdapter;
     ArrayList<ServiceHistoryModel> listServiceInfo;
 
     public ServiceInfoAdapter(Context context, ArrayList<ServiceHistoryModel> listServiceInfo) {
         this.context = context;
         this.listServiceInfo = listServiceInfo;
+        this.serviceInfoAdapter = this;
     }
 
     @NonNull
@@ -41,18 +43,17 @@ public class ServiceInfoAdapter  extends RecyclerView.Adapter<ServiceInfoAdapter
         ServiceHistoryModel serviceHistoryModel = listServiceInfo.get(position);
 
         holder.titleServiceInfo.setText("Tip interventie: " + serviceHistoryModel.getTypeOfIntervention());
-        holder.serviceDescription.setText("Detalii: " + serviceHistoryModel.getDetails() + " \n\\nData: " + serviceHistoryModel.getService_made_date());
+        holder.serviceDescription.setText("Detalii: " + serviceHistoryModel.getDetails() + " \n\nData: " + serviceHistoryModel.getService_made_date());
 
 
         holder.buttonServiceInfoDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: implement db logic for delete service info
                 String serviceId = serviceHistoryModel.getId();
                 DBHelper db = new DBHelper(context);
                 db.DeleteServiceHistory(serviceId);
-
-                Toast.makeText(context, "Istoriv service sters! Reincarcati pagina pentru a reimprospata lista!", Toast.LENGTH_LONG);
+                listServiceInfo.remove(serviceHistoryModel);
+                serviceInfoAdapter.notifyDataSetChanged();
             }
         });
     }

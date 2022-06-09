@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable/border_news_item.xml" value="0.3828125" />
+        <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable/ic_add_car_image.xml" value="0.2703125" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable/ic_baseline_directions_car_24.xml" value="0.19166666666666668" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable/ic_car_documents.xml" value="0.22395833333333334" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/drawable/ic_car_price_prediction.xml" value="0.19166666666666668" />
@@ -40,8 +41,10 @@
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/menu/buttom_menu.xml" value="0.19114583333333332" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/menu/my_car_details_bottom_menu.xml" value="0.2078125" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/menu/side_menu.xml" value="0.19114583333333332" />
+        <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.15729166666666666" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/mipmap-anydpi-v26/image_myGarageLoginView.xml" value="0.34074074074074073" />
         <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/mipmap-anydpi-v26/image_myGarageLoginView_round.xml" value="0.22864583333333333" />
+        <entry key="..\:/WORKING/LICENTA/MyGarage/app/src/main/res/mipmap-anydpi-v26/image_myGarageLogo.xml" value="0.15729166666666666" />
       </map>
     </option>
   </component>

@@ -187,16 +187,16 @@ public class MainActivity extends AppCompatActivity {
     private void pushNotifications() {
 
 
-        AlertDialog alertDeleteCarDialog = new AlertDialog.Builder(MainActivity.this).create();
-        alertDeleteCarDialog.setTitle("Notificari documente");
+        AlertDialog alertNotifications = new AlertDialog.Builder(MainActivity.this).create();
+        alertNotifications.setTitle("Notificari documente");
 
         String notificationBody = "";
         List<String> messageNotifications = getNotificationsBody();
         for(String s : messageNotifications) {
             notificationBody = notificationBody.concat(s + "\n\n");
         }
-        alertDeleteCarDialog.setMessage(notificationBody);
-        alertDeleteCarDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+        alertNotifications.setMessage(notificationBody);
+        alertNotifications.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        alertDeleteCarDialog.show();
+        alertNotifications.show();
     }
 
     private List<String> getNotificationsBody() {
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
             DocumentsModel docsOfCar = dbHelper.getDocumentsOfCar(c.getId());
 
             Date endDateITP, endDateInsurance, endDateRoadTax;
-            String nameOfCar = c.getMake() + " " + c.getModel();
+            String nameOfCar = c.getMake() + " " + c.getModel() + ", " + c.getEngine_capacity() + "L-" + c.getFuel_type();
 
             try {
                 endDateITP = new SimpleDateFormat("dd/MM/yyyy").parse(docsOfCar.getItp_end_date());
